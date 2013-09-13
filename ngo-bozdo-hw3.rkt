@@ -2,7 +2,7 @@
 ;; Username: hmngo
 ;; ------------------------------
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 1: A storm can be any one of the following:
 ;;
 ;;- hurricane: Information required for a hurricane consists of the name of the hurricane, 
@@ -15,7 +15,7 @@
 ;;        
 ;;Develop a data definition for each type of storm described above, and a data definition for an itemization for storms. 
 ;;Provide at least one example for each kind of storm.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-struct hurricane (name category max-wind storm-velocity storm-destination))
 ;; A hurricane is (make-hurricane String Natural Number Number String)
@@ -26,4 +26,11 @@
 ;;         storm-velocity as the storm's velocity
 ;;         storm-destination as the storm's heading
 
-(define-struct thunderstorm)
+(define-struct thunderstorm (amount-rainfall max-wind-gust storm-velocity storm-destination)
+;; A thunderstorm is (make-thunderstorm Number Number Number String)
+;; interp. (make-thunderstorm amount-rainfall max-wind-gust storm-velocity storm-destination) is a thunderstorm that has
+;;         amount--rainfall as its number of inches of rainfall
+;;         max-wind-gust as its maximum wind gust in miles per hour
+;;         storm-velocity as the storm's velocity in miles per hour
+;;         storm-destination as the storm's heading
+
