@@ -195,13 +195,15 @@
 ;; Purpose: return true if a ListOfString contains at least one numeric character
 ;;                 false otherwise
 
-(check-expect ())
+(check-expect (all-contain-number? empty) false)
+(check-expect (all-contain-numbers? (cons "CS1101" (cons "A1" (cons "32" empty)))) true)
+(check-expect (all-contain-numbers? (cons "CS1101" (cons "A-one" (cons "32" empty)))) false)
 
 (check-expect (all-contain-number? a-los)
     (cond 
-        [(empty? a-los) 0]
-        [(cons? a-los) (or (has-number? (first a-los))
-                           (all-contain-number? (rest a-los)))]))
+        [(empty? a-los) false]
+        [(cons? a-los)  (and (has-number? (first a-los))
+                            (all-contain-number? (rest a-los)))]))
                            
 
 ;; -------------------------------------------- HELPER FUNCTIONS ---------------------------------------------------
