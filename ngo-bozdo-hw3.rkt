@@ -206,9 +206,12 @@
 
 (define (all-contain-number? a-los)
     (cond 
-        [(empty? a-los) false]
-        [(cons? a-los)  (and (has-number? (first a-los))
-                             (all-contain-number? (rest a-los)))]))
+        [(empty? a-los) false]              ;;;;!!!!!!
+        [(cons? a-los)  (if (almost-end? a-los)
+                            (has-number? (first a-los))
+                            (and (has-number? (first a-los))
+                                 (all-contain-number? (rest a-los))))]))
+                                     
                            
 
 ;; -------------------------------------------- HELPER FUNCTIONS ---------------------------------------------------
@@ -232,6 +235,17 @@
         (string-contains? "7" str)
         (string-contains? "8" str)
         (string-contains? "9" str)))
+
+;; Signature: almost-end? : ListOfString -> boolean
+;; Purpose: consume a list having 2 elements at least and
+;;          return true if the ListOfString contains only 2 elements left
+;;;                false otherwise
+
+(check-expect (almost-end? (cons "asd" empty)) true)
+(check-expect (almost-end? (cons "asd" (cons "asd" empty))) false)
+
+(define (almost-end? a-los)
+  (empty? (rest a-los)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
