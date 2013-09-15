@@ -26,11 +26,129 @@
 ;;         storm-velocity as the storm's velocity
 ;;         storm-destination as the storm's heading
 
+(define H1 (make-thurricane "Crazy" 4 100 900 "Nowhere"))
+
 (define-struct thunderstorm (amount-rainfall max-wind-gust storm-velocity storm-destination)
 ;; A thunderstorm is (make-thunderstorm Number Number Number String)
 ;; interp. (make-thunderstorm amount-rainfall max-wind-gust storm-velocity storm-destination) is a thunderstorm that has
-;;         amount--rainfall as its number of inches of rainfall
+;;         amount-rainfall as its number of inches of rainfall
 ;;         max-wind-gust as its maximum wind gust in miles per hour
 ;;         storm-velocity as the storm's velocity in miles per hour
 ;;         storm-destination as the storm's heading
 
+(define T1 (make-thunderstorm 60 320 203 "Somewhere"))
+
+(define-struct fire (cover-area total-raging-day no-people-displaced)
+;; A fire is (make-fire Number Natural Natural)
+;; interp. (make-fire cover-area total-raging-day no-people-displaced) is a fire that has
+;;         cover-area as the number of square miles it covers
+;;         total-raging-day as the number of days it has been raging
+;;         no-people-displaced as the number of people displaced by the fire
+
+(define F1 (make-fire 1000 230 1939290))
+
+;; A storm is one of
+;;                   - hurricane
+;;                   - thunderstorm
+;;                   - fire
+
+(define (fun-for-storm a-storm ...)
+    (cond 
+        [(hurricane? a-storm) (hurricane-amount-rainfall   a-storm)
+                              (hurricane-category          a-storm)
+                              (hurricane-max-wind          a-storm)
+                              (hurricane-storm-velocity    a-storm)
+                              (hurricane-storm-destination a-storm)]
+        [(thunderstorm? a-storm)  (thunderstorm-amount-rainfall   a-storm)
+                                  (thunderstorm-max-wind-gust     a-storm)
+                                  (thunderstorm-storm-velocity    a-storm)
+                                  (thunderstorm-storm-destination a-storm)]
+        [(fire? a-storm)      (fire-cover-area        a-storm)
+                              (fire-total-raging-day  a-storm)
+                              (fire-storm-destination a-storm)]))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 2: Provide the template for each data definition you made in Problem 1 (including the itemization).
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Template for hurricane
+
+(define (fun-for-hurricane a-hurricane ...)
+    (... (hurricane-amount-rainfall   a-hurricane)
+         (hurricane-category          a-hurricane)
+         (hurricane-max-wind          a-hurricane)
+         (hurricane-storm-velocity    a-hurricane)
+         (hurricane-storm-destination a-hurricane)))
+
+;; Template for thunderstorm
+
+(define (fun-for-thunderstorm a-thunderstorm ...)
+    (... (thunderstorm-amount-rainfall   a-thunderstorm)
+         (thunderstorm-max-wind-gust     a-thunderstorm)
+         (thunderstorm-storm-velocity    a-thunderstorm)
+         (thunderstorm-storm-destination a-thunderstorm)))
+
+;; Template for fire
+
+(define (fun-for-fire a-fire ...)
+    (... (fire-cover-area        a-fire)
+         (fire-total-raging-day  a-fire)
+         (fire-storm-destination a-fire)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 3: Write a function high-impact? that consumes a storm and produces a boolean. 
+;;            The function returns true if the storm is a category 4 or 5 hurricane, 
+;;            a thunderstorm with more than 3 inches of rainfall and winds exceeding 60mph, or
+;;            a fire covering at least 50 square miles.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Signature: high-impact?: storm -> boolean
+;; Purpose: return true if the storm is a category 4 or 5 hurricane
+;;                                      the thunderstorm with more than 3 inches of rainfall and winds exceeding 60mph
+;;                                      a fire covering at least 50 square miles
+
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+(check-expect (high-impact? ))
+
+(define (high-impact? a-storm)
+    (or (and (hurricane? a-storm)
+             (or (= (hurricane-storm-category 4) 4)
+                 (= (hurricane-storm-category 5) 5)))
+        (and (thunderstorm? a-storm)
+             (> (thunderstorm-amount-rainfall a-storm) 3)
+             (> (thunderstorm-wind-velocity   a-storm) 60))
+        (and (fire? a-storm)
+             (>= (fire-cover-area a-storm) 50))
+    )
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 4: Write a function change-heading that consumes a storm and a heading and produces a storm. 
+;;            The storm is returned unchanged if the given storm is a fire. 
+;;            Otherwise, the storm that's produced is a storm the same as the original, 
+;;            except that the heading has been changed to the given heading.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Signature: change-heading : Storm String -> Storm
+;; Purpose: consume a storm and return
+;;          an unchanged storm if the given storm is a fire
+;;          a storm the same as the original with a new heading
+
+(check-expect (change-heading a-storm heading)
+    (cond 
+        [(fire? a-storm) a-storm]
+        [(hurricane? a-storm) (make-hurricane )]))
