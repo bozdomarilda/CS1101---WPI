@@ -123,7 +123,7 @@
 (check-expect (high-impact? (make-fire 50 456 765)) true)
 (check-expect (high-impact? (make-fire 60 645 347)) true)
 
-(define (fun-for-storm a-storm)
+(define (high-impact? a-storm)
     (cond 
         [(hurricane? a-storm)    (>= (hurricane-category a-storm) 4)]
         [(thunderstorm? a-storm) (and (> (thunderstorm-amount-rainfall a-storm) 3)
