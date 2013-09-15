@@ -165,7 +165,7 @@
 
 (define LOS1 (cons empty))
 (define LOS2 (cons "paper" empty))
-(define LOS3 (cons "paper" (cons "pen" (cons "idiosyncrasy" empty))
+(define LOS3 (cons "paper" (cons "pen" (cons "idiosyncrasy" empty)))
 
 ;; Signature: character-count : ListOfString -> Natural
 ;; Purpose: return the total number of characters in all string of the ListOfString
