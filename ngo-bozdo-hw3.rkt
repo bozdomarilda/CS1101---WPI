@@ -209,9 +209,42 @@
 (check-expect (has-number? ))
 
 (define (has-number? str)
-    (or (string-contains? "" str)
-        (string-contains? "" str)
-        (string-contains? "" str)
-        (string-contains? "" str)
-        (string-contains? "" str)
-        (string-contains? "" str))
+    (or (string-contains? "0" str)
+        (string-contains? "1" str)
+        (string-contains? "2" str)
+        (string-contains? "3" str)
+        (string-contains? "4" str)
+        (string-contains? "5" str)
+        (string-contains? "6" str)
+        (string-contains? "7" str)
+        (string-contains? "8" str)
+        (string-contains? "9" str)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 7: Write a data definition to represent a list of natural numbers (call it ListOfNatural). 
+;; Then develop a function lengths-of-strings that consumes a ListOfString and produces a ListOfNatural. 
+;; The function produces a list of the lengths of each of the strings in the given ListOfString.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; A ListOfNatural is one of
+;;       - empty
+;;       - (cons Natural empty)
+
+(define (fun-for-lon a-lon)
+    (cond 
+        [(empty? a-lon) ...]
+        [(cons? a-lon) (... (first (a-lon))
+                            (fun-for-lon (rest a-lon)))]))
+                            
+;; Signature: lengths-of-strings : ListOfString -> ListOfNatural
+;; Purpose: consume a ListOfString and 
+;;          return a ListOfNatural that contains the length of all elements in ListOfString separately
+
+(check-expect (lengths-of-strings ))
+
+(define (lengths-of-strings a-lon)
+    (cond 
+        [(empty? a-lon) empty]
+        [(cons? a-lon) (cons (string-length (first (a-lon)))
+                             (lengths-of-strings (rest a-lon)))]))
