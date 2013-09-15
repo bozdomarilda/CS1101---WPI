@@ -203,7 +203,7 @@
     (cond 
         [(empty? a-los) false]
         [(cons? a-los)  (and (has-number? (first a-los))
-                            (all-contain-number? (rest a-los)))]))
+                             (all-contain-number? (rest a-los)))]))
                            
 
 ;; -------------------------------------------- HELPER FUNCTIONS ---------------------------------------------------
@@ -211,7 +211,10 @@
 ;; Purpose: return true if the string has a numeric character
 ;;                 false otherwise
 
-(check-expect (has-number? ))
+(check-expect (has-number? "abc")     false)
+(check-expect (has-number? "abc-()5") true)
+(check-expect (has-number? "a43")     true)
+(check-expect (has-number? "243")     true)
 
 (define (has-number? str)
     (or (string-contains? "0" str)
@@ -246,10 +249,12 @@
 ;; Purpose: consume a ListOfString and 
 ;;          return a ListOfNatural that contains the length of all elements in ListOfString separately
 
-(check-expect (lengths-of-strings ))
+(check-expect (lengths-of-strings empty) empty)
+(check-expect (lengths-of-strings (cons "a" (cons "abc" (cons "Hahah" (cons "sajsd0" empty)))))
+              (cons 1 (cons 3 (cons 5 (cons 6 empty)))))
 
 (define (lengths-of-strings a-lon)
     (cond 
         [(empty? a-lon) empty]
-        [(cons? a-lon) (cons (string-length (first (a-lon)))
+        [(cons? a-lon) (cons (string-length (first a-lon))
                              (lengths-of-strings (rest a-lon)))]))
