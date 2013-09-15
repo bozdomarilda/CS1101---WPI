@@ -107,19 +107,17 @@
 ;;                                      the thunderstorm with more than 3 inches of rainfall and winds exceeding 60mph
 ;;                                      a fire covering at least 50 square miles
 
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
-(check-expect (high-impact? ))
+(check-expect (high-impact? (make-hurricane "n1" 3 90 90 "nowhere")))
+(check-expect (high-impact? (make-hurricane "n2" 4 34 34 "nowhere")))
+(check-expect (high-impact? (make-hurricane "n3" 5 24 57 "nowhere")))
+(check-expect (high-impact? (make-thunderstorm 2 50 354 "nowhere")))
+(check-expect (high-impact? (make-thunderstorm 3 50 354 "nowhere")))
+(check-expect (high-impact? (make-thunderstorm 3 60 543 "nowhere")))
+(check-expect (high-impact? (make-thunderstorm 4 60 354 "nowhere")))
+(check-expect (high-impact? (make-thunderstorm 4 70 234 "nowhere")))
+(check-expect (high-impact? (make-fire 40 454 236)))
+(check-expect (high-impact? (make-fire 50 456 765)))
+(check-expect (high-impact? (make-fire 60 645 347)))
 
 (define (high-impact? a-storm)
     (or (and (hurricane? a-storm)
@@ -146,11 +144,18 @@
 ;;          an unchanged storm if the given storm is a fire
 ;;          a storm the same as the original with a new heading
 
-(check-expect (change-heading a-storm heading)       ;;; The hell am I supposed to do here?
+(check-expect (change-heading a-storm heading)
     (cond 
         [(fire? a-storm) a-storm]
-        [(hurricane? a-storm) (make-hurricane )]
-        [(thunderstorm? a-storm) ...]))
+        [(hurricane? a-storm) (make-hurricane (hurricane-name           a-storm)
+        									  (hurricane-category       a-storm)
+        									  (hurricane-max-wind       a-storm)
+        									  (hurricane-storm-velocity a-storm)
+        									  heading)]
+        [(thunderstorm? a-storm) (make-thunderstorm (thunderstorm-amount-rainfall a-storm)
+        											(thundetstorm-max-wind-gust   a-storm)
+        											(thuderstorm-storm-velocity   a-storm)
+        											heading)]))
         
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
