@@ -52,21 +52,6 @@
 ;;                   - thunderstorm
 ;;                   - fire
 
-(define (fun-for-storm a-storm ...)
-    (cond 
-        [(hurricane? a-storm) (hurricane-amount-rainfall   a-storm)
-                              (hurricane-category          a-storm)
-                              (hurricane-max-wind          a-storm)
-                              (hurricane-storm-velocity    a-storm)
-                              (hurricane-storm-destination a-storm)]
-        [(thunderstorm? a-storm)  (thunderstorm-amount-rainfall   a-storm)
-                                  (thunderstorm-max-wind-gust     a-storm)
-                                  (thunderstorm-storm-velocity    a-storm)
-                                  (thunderstorm-storm-destination a-storm)]
-        [(fire? a-storm)      (fire-cover-area        a-storm)
-                              (fire-total-raging-day  a-storm)
-                              (fire-storm-destination a-storm)]))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 2: Provide the template for each data definition you made in Problem 1 (including the itemization).
@@ -95,7 +80,20 @@
     (... (fire-cover-area        a-fire)
          (fire-total-raging-day  a-fire)
          (fire-storm-destination a-fire)))
-
+(define (fun-for-storm a-storm ...)
+    (cond 
+        [(hurricane? a-storm) (hurricane-amount-rainfall   a-storm)
+                              (hurricane-category          a-storm)
+                              (hurricane-max-wind          a-storm)
+                              (hurricane-storm-velocity    a-storm)
+                              (hurricane-storm-destination a-storm)]
+        [(thunderstorm? a-storm)  (thunderstorm-amount-rainfall   a-storm)
+                                  (thunderstorm-max-wind-gust     a-storm)
+                                  (thunderstorm-storm-velocity    a-storm)
+                                  (thunderstorm-storm-destination a-storm)]
+        [(fire? a-storm)      (fire-cover-area        a-storm)
+                              (fire-total-raging-day  a-storm)
+                              (fire-storm-destination a-storm)]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 3: Write a function high-impact? that consumes a storm and produces a boolean. 
