@@ -26,9 +26,9 @@
 ;;         storm-velocity as the storm's velocity
 ;;         storm-destination as the storm's heading
 
-(define H1 (make-thurricane "Crazy" 4 100 900 "Nowhere"))
+(define H1 (make-hurricane "Crazy" 4 100 900 "Nowhere"))
 
-(define-struct thunderstorm (amount-rainfall max-wind-gust storm-velocity storm-destination)
+(define-struct thunderstorm (amount-rainfall max-wind-gust storm-velocity storm-destination))
 ;; A thunderstorm is (make-thunderstorm Number Number Number String)
 ;; interp. (make-thunderstorm amount-rainfall max-wind-gust storm-velocity storm-destination) is a thunderstorm that has
 ;;         amount-rainfall as its number of inches of rainfall
@@ -38,7 +38,7 @@
 
 (define T1 (make-thunderstorm 60 320 203 "Somewhere"))
 
-(define-struct fire (cover-area total-raging-day no-people-displaced)
+(define-struct fire (cover-area total-raging-day no-people-displaced))
 ;; A fire is (make-fire Number Natural Natural)
 ;; interp. (make-fire cover-area total-raging-day no-people-displaced) is a fire that has
 ;;         cover-area as the number of square miles it covers
@@ -59,7 +59,7 @@
 
 ;; Template for hurricane
 
-(define (fun-for-hurricane a-hurricane ...)
+(define (fun-for-hurricane a-hurricane)
     (... (hurricane-amount-rainfall   a-hurricane)
          (hurricane-category          a-hurricane)
          (hurricane-max-wind          a-hurricane)
@@ -68,7 +68,7 @@
 
 ;; Template for thunderstorm
 
-(define (fun-for-thunderstorm a-thunderstorm ...)
+(define (fun-for-thunderstorm a-thunderstorm)
     (... (thunderstorm-amount-rainfall   a-thunderstorm)
          (thunderstorm-max-wind-gust     a-thunderstorm)
          (thunderstorm-storm-velocity    a-thunderstorm)
@@ -76,24 +76,26 @@
 
 ;; Template for fire
 
-(define (fun-for-fire a-fire ...)
+(define (fun-for-fire a-fire)
     (... (fire-cover-area        a-fire)
          (fire-total-raging-day  a-fire)
          (fire-storm-destination a-fire)))
-(define (fun-for-storm a-storm ...)
+         
+;; Template for storm
+(define (fun-for-storm a-storm)
     (cond 
-        [(hurricane? a-storm) (hurricane-amount-rainfall   a-storm)
-                              (hurricane-category          a-storm)
-                              (hurricane-max-wind          a-storm)
-                              (hurricane-storm-velocity    a-storm)
-                              (hurricane-storm-destination a-storm)]
-        [(thunderstorm? a-storm)  (thunderstorm-amount-rainfall   a-storm)
-                                  (thunderstorm-max-wind-gust     a-storm)
-                                  (thunderstorm-storm-velocity    a-storm)
-                                  (thunderstorm-storm-destination a-storm)]
-        [(fire? a-storm)      (fire-cover-area        a-storm)
-                              (fire-total-raging-day  a-storm)
-                              (fire-storm-destination a-storm)]))
+        [(hurricane? a-storm) (...(hurricane-name              a-storm)
+                                  (hurricane-category          a-storm)
+                                  (hurricane-max-wind          a-storm)
+                                  (hurricane-storm-velocity    a-storm)
+                                  (hurricane-storm-destination a-storm))]
+        [(thunderstorm? a-storm)  (...(thunderstorm-amount-rainfall   a-storm)
+                                      (thunderstorm-max-wind-gust     a-storm)
+                                      (thunderstorm-storm-velocity    a-storm)
+                                      (thunderstorm-storm-destination a-storm))]
+        [(fire? a-storm) (...(fire-cover-area        a-storm)
+                             (fire-total-raging-day  a-storm)
+                             (fire-storm-destination a-storm))]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 3: Write a function high-impact? that consumes a storm and produces a boolean. 
@@ -107,25 +109,24 @@
 ;;                                      the thunderstorm with more than 3 inches of rainfall and winds exceeding 60mph
 ;;                                      a fire covering at least 50 square miles
 
-(check-expect (high-impact? (make-hurricane "n1" 3 90 90 "nowhere")))
-(check-expect (high-impact? (make-hurricane "n2" 4 34 34 "nowhere")))
-(check-expect (high-impact? (make-hurricane "n3" 5 24 57 "nowhere")))
-(check-expect (high-impact? (make-thunderstorm 2 50 354 "nowhere")))
-(check-expect (high-impact? (make-thunderstorm 3 50 354 "nowhere")))
-(check-expect (high-impact? (make-thunderstorm 3 60 543 "nowhere")))
-(check-expect (high-impact? (make-thunderstorm 4 60 354 "nowhere")))
-(check-expect (high-impact? (make-thunderstorm 4 70 234 "nowhere")))
-(check-expect (high-impact? (make-fire 40 454 236)))
-(check-expect (high-impact? (make-fire 50 456 765)))
-(check-expect (high-impact? (make-fire 60 645 347)))
+(check-expect (high-impact? (make-hurricane "n1" 3 90 90 "nowhere")) false)
+(check-expect (high-impact? (make-hurricane "n2" 4 34 34 "nowhere")) true)
+(check-expect (high-impact? (make-hurricane "n3" 5 24 57 "nowhere")) true)
+(check-expect (high-impact? (make-thunderstorm 2 50 354 "nowhere")) false)
+(check-expect (high-impact? (make-thunderstorm 3 50 354 "nowhere")) false)
+(check-expect (high-impact? (make-thunderstorm 3 60 543 "nowhere")) false)
+(check-expect (high-impact? (make-thunderstorm 4 60 354 "nowhere")) false)
+(check-expect (high-impact? (make-thunderstorm 4 70 234 "nowhere")) true)
+(check-expect (high-impact? (make-fire 40 454 236)) false)
+(check-expect (high-impact? (make-fire 50 456 765)) true)
+(check-expect (high-impact? (make-fire 60 645 347)) true)
 
 (define (high-impact? a-storm)
     (or (and (hurricane? a-storm)
-             (or (= (hurricane-storm-category 4) 4)
-                 (= (hurricane-storm-category 5) 5)))
+             (>= (hurricane-category a-storm) 4))
         (and (thunderstorm? a-storm)
              (> (thunderstorm-amount-rainfall a-storm) 3)
-             (> (thunderstorm-wind-velocity   a-storm) 60))
+             (> (thunderstorm-max-wind-gust  a-storm) 60))
         (and (fire? a-storm)
              (>= (fire-cover-area a-storm) 50))
     )
@@ -144,7 +145,11 @@
 ;;          an unchanged storm if the given storm is a fire
 ;;          a storm the same as the original with a new heading
 
-(check-expect (change-heading a-storm heading)
+(check-expect (change-heading F1 "somewhere") F1)
+(check-expect (change-heading T1 "nowhere") (make-thunderstorm 60 320 203 "nowhere"))
+(check-expect (change-heading H1 "somewhere") (make-hurricane "Crazy" 4 100 900 "somewhere"))
+
+(define (change-heading a-storm heading)
     (cond 
         [(fire? a-storm) a-storm]
         [(hurricane? a-storm) (make-hurricane (hurricane-name           a-storm)
@@ -153,8 +158,8 @@
         									  (hurricane-storm-velocity a-storm)
         									  heading)]
         [(thunderstorm? a-storm) (make-thunderstorm (thunderstorm-amount-rainfall a-storm)
-        											(thundetstorm-max-wind-gust   a-storm)
-        											(thuderstorm-storm-velocity   a-storm)
+        											(thunderstorm-max-wind-gust   a-storm)
+        											(thunderstorm-storm-velocity  a-storm)
         											heading)]))
         
 
@@ -163,7 +168,7 @@
 ;;            counts the total number of characters in all strings in the list.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define LOS1 (cons empty))
+(define LOS1 empty)
 (define LOS2 (cons "paper" empty))
 (define LOS3 (cons "paper" (cons "pen" (cons "idiosyncrasy" empty))))
 
@@ -174,7 +179,7 @@
 (check-expect (character-count LOS2) 5)
 (check-expect (character-count LOS3) 20)
 
-(check-expect (character-count a-los)
+(define (character-count a-los)
     (cond 
         [(empty? a-los) 0]
         [(cons? a-los) (+ (string-length (first a-los))
@@ -196,10 +201,10 @@
 ;;                 false otherwise
 
 (check-expect (all-contain-number? empty) false)
-(check-expect (all-contain-numbers? (cons "CS1101" (cons "A1" (cons "32" empty)))) true)
-(check-expect (all-contain-numbers? (cons "CS1101" (cons "A-one" (cons "32" empty)))) false)
+(check-expect (all-contain-number? (cons "CS1101" (cons "A1" (cons "32" empty)))) true)
+(check-expect (all-contain-number? (cons "CS1101" (cons "A-one" (cons "32" empty)))) false)
 
-(check-expect (all-contain-number? a-los)
+(define (all-contain-number? a-los)
     (cond 
         [(empty? a-los) false]
         [(cons? a-los)  (and (has-number? (first a-los))
