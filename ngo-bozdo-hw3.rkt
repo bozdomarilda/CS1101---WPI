@@ -148,7 +148,70 @@
 ;;          an unchanged storm if the given storm is a fire
 ;;          a storm the same as the original with a new heading
 
-(check-expect (change-heading a-storm heading)
+(check-expect (change-heading a-storm heading)       ;;; The hell am I supposed to do here?
     (cond 
         [(fire? a-storm) a-storm]
-        [(hurricane? a-storm) (make-hurricane )]))
+        [(hurricane? a-storm) (make-hurricane )]
+        [(thunderstorm? a-storm) ...]))
+        
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 5: Develop a function character-count that consumes a list-of-string and 
+;;            counts the total number of characters in all strings in the list.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define LOS1 (cons empty))
+(define LOS2 (cons "paper" empty))
+(define LOS3 (cons "paper" (cons "pen" (cons "idiosyncrasy" empty))
+
+;; Signature: character-count : ListOfString -> Natural
+;; Purpose: return the total number of characters in all string of the ListOfString
+
+(check-expect (character-count LOS1) 0)
+(check-expect (character-count LOS2) 5)
+(check-expect (character-count LOS3) 20)
+
+(check-expect (character-count a-los)
+    (cond 
+        [(empty? a-los) 0]
+        [(cons? a-los) (+ (string-length (first a-los))
+                          (character-count (rest a-los)))]))
+                          
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 6: Develop a function all-contain-numbers? that consumes a ListOfString and 
+;; produces true if every string in the list contains at least one numeric character. 
+;; Otherwise, the function produces false. (Hint: check the DrRacket help desk for various string functions). 
+;; Here are two sample test cases (you may need additional test cases):
+;; (check-expect (all-contain-numbers? (cons "CS1101" (cons "A1" (cons "32" empty)))) true)
+;; (check-expect (all-contain-numbers? (cons "CS1101" (cons "A-one" (cons "32" empty)))) false)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; --------------------------------------------- MAIN FUNCTION -----------------------------------------------------
+;; Signature: all-contain-number? : ListOfString -> Boolean
+;; Purpose: return true if a ListOfString contains at least one numeric character
+;;                 false otherwise
+
+(check-expect ())
+
+(check-expect (all-contain-number? a-los)
+    (cond 
+        [(empty? a-los) 0]
+        [(cons? a-los) (or (has-number? (first a-los))
+                           (all-contain-number? (rest a-los)))]))
+                           
+
+;; -------------------------------------------- HELPER FUNCTIONS ---------------------------------------------------
+;; Signature: has-number? : String -> Boolean
+;; Purpose: return true if the string has a numeric character
+;;                 false otherwise
+
+(check-expect (has-number? ))
+
+(define (has-number? str)
+    (or (string-contains? "" str)
+        (string-contains? "" str)
+        (string-contains? "" str)
+        (string-contains? "" str)
+        (string-contains? "" str)
+        (string-contains? "" str))
