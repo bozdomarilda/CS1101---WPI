@@ -82,6 +82,7 @@
          (fire-storm-destination a-fire)))
          
 ;; Template for storm
+
 (define (fun-for-storm a-storm)
     (cond 
         [(hurricane? a-storm) (...(hurricane-name              a-storm)
@@ -96,6 +97,7 @@
         [(fire? a-storm) (...(fire-cover-area        a-storm)
                              (fire-total-raging-day  a-storm)
                              (fire-storm-destination a-storm))]))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 3: Write a function high-impact? that consumes a storm and produces a boolean. 
@@ -121,16 +123,12 @@
 (check-expect (high-impact? (make-fire 50 456 765)) true)
 (check-expect (high-impact? (make-fire 60 645 347)) true)
 
-(define (high-impact? a-storm)
-    (or (and (hurricane? a-storm)
-             (>= (hurricane-category a-storm) 4))
-        (and (thunderstorm? a-storm)
-             (> (thunderstorm-amount-rainfall a-storm) 3)
-             (> (thunderstorm-max-wind-gust  a-storm) 60))
-        (and (fire? a-storm)
-             (>= (fire-cover-area a-storm) 50))
-    )
-)
+(define (fun-for-storm a-storm)
+    (cond 
+        [(hurricane? a-storm)    (>= (hurricane-category a-storm) 4)]
+        [(thunderstorm? a-storm) (and (> (thunderstorm-amount-rainfall a-storm) 3)
+                                	  (> (thunderstorm-max-wind-gust   a-storm) 60))]
+        [(fire? a-storm)         (>= (fire-cover-area a-storm) 50)]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
