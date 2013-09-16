@@ -270,8 +270,8 @@
 (check-expect (lengths-of-strings (cons "a" (cons "abc" (cons "Hahah" (cons "sajsd0" empty)))))
               (cons 1 (cons 3 (cons 5 (cons 6 empty)))))
 
-(define (lengths-of-strings a-lon)
+(define (lengths-of-strings a-los)
     (cond 
-        [(empty? a-lon) empty]
-        [(cons? a-lon) (cons (string-length (first a-lon))
-                             (lengths-of-strings (rest a-lon)))]))
+        [(empty? a-los) empty]
+        [(cons? a-los) (cons (string-length (first a-los))
+                             (lengths-of-strings (rest a-los)))]))
