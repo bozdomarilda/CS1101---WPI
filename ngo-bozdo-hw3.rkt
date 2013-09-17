@@ -30,7 +30,7 @@
 
 (define-struct thunderstorm (amount-rainfall max-wind-gust velocity heading))
 ;; Signature: a thunderstorm is a (make-thunderstorm number number number string)
-;; Interp: (make-thunderstorm rainfall max-wind-gust velocity heading) is a thunderstorm with
+;; Interp: (make-thunderstorm amount-rainfall max-wind-gust velocity heading) is a thunderstorm with
 ;;           amount-rainfall as the number of inches of rainfall
 ;;           max-wind-gust as the maximum wind gust in miles per hour
 ;;           velocity as the velocity of the thunderstorm in miles per hour
