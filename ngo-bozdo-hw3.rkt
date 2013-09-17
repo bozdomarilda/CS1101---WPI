@@ -44,10 +44,56 @@
 ;;          cover-area as the number of square miles it covers
 ;;          duration as the number of days it has been raging
 ;;          n-people-displaced as the number of people displaced by fire
-(make-fire 100 10 50)
 
+(make-fire 100 10 50)
 
 ;; Storm is one of
 ;;      - hurricane
 ;;      - thunderstorm
 ;;      - fire
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 2: Provide the template for each data definition you made in Problem 1 (including the itemization).
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Template for hurricane 
+
+(define (fun-for-hurricane a-hurricane)
+  (... (hurricane-name      a-hurricane)
+       (hurricane-category  a-hurricane)
+       (hurricane-max-winds a-hurricane)
+       (hurricane-velocity  a-hurricane)
+       (hurricane-heading   a-hurricane)))
+
+;; Template for thunderstorm
+
+(define (fun-for-thunderstorm a-thunderstorm)
+  (... (thunderstorm-amount-rainfall a-thunderstorm)
+       (thunderstorm-max-wind-gust   a-thunderstorm)
+       (thunderstorm-velocity        a-thunderstorm)
+       (thunderstorm-heading         a-thunderstorm)))
+
+;; Template for fire
+
+(define (fun-for-fire a-fire)
+  (... (fire-cover-area         a-fire)
+       (fire-duration           a-fire)
+       (fire-n-people-displaced a-fire)))
+
+;; Template for storm
+
+(define (fun-for-storm a-storm ...)
+  (cond 
+        [(hurricane? a-storm) (... (hurricane-name      a-storm)
+                                   (hurricane-category  a-storm)
+                                   (hurricane-max-winds a-storm)
+                                   (hurricane-velocity  a-storm)
+                                   (hurricane-heading   a-storm))]
+        [(thunderstorm? a-storm) (... (thunderstorm-rainfall      a-storm)
+                                      (thunderstorm-max-wind-gust a-storm)
+                                      (thunderstorm-velocity      a-storm)
+                                      (thunderstorm-heading       a-storm))]
+        [(fire? a-storm) (... (fire-cover-area         a-storm)
+                              (fire-duration           a-storm)
+                              (fire-n-people-displaced a-storm)]))     
+
