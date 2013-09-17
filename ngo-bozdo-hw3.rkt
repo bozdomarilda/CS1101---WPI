@@ -35,19 +35,19 @@
 ;;           max-wind-gust as the maximum wind gust in miles per hour
 ;;           velocity as the velocity of the thunderstorm in miles per hour
 ;;           heading as the place where the thunderstorm is heading
+
 (make-thunderstorm 5 50 80 "New York")
 
-(define-struct fire (numb-square-miles numb-days numb-people))
-;; Signature:
-;; a Fire is a (make-fire number number number)
-;; Interp: (make-fire numb-square-miles numb-days numb-people) is a fire with
-;;          numb-square-miles as the number of square miles it covers
-;;          numb-days as the number of days it has been raging
-;;          numb-people as the number of people displaced by fire
+(define-struct fire (cover-area duration n-people-displaced))
+;; Signature: a fire is a (make-fire number number number)
+;; Interp: (make-fire cover-area duration n-people-displaced) is a fire with
+;;          cover-area as the number of square miles it covers
+;;          duration as the number of days it has been raging
+;;          n-people-displaced as the number of people displaced by fire
 (make-fire 100 10 50)
 
 
 ;; Storm is one of
-;; - hurricane
-;; - thunderstorm
-;; - fire
+;;      - hurricane
+;;      - thunderstorm
+;;      - fire
