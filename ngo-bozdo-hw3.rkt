@@ -26,7 +26,7 @@
 ;;          velocity as the velocity of the hurricane in miles per hour
 ;;          heading as the place where the hurricane is heading
 
-(make-hurricane "Katrina" 5 175 150 "South Florida")
+(define H1 (make-hurricane "Katrina" 5 175 150 "South Florida"))
 
 (define-struct thunderstorm (amount-rainfall max-wind-gust velocity heading))
 ;; Signature: a thunderstorm is a (make-thunderstorm number number number string)
@@ -36,7 +36,7 @@
 ;;           velocity as the velocity of the thunderstorm in miles per hour
 ;;           heading as the place where the thunderstorm is heading
 
-(make-thunderstorm 5 50 80 "New York")
+(define T1 (make-thunderstorm 5 50 80 "New York"))
 
 (define-struct fire (cover-area duration n-people-displaced))
 ;; Signature: a fire is a (make-fire number number number)
@@ -45,7 +45,7 @@
 ;;          duration as the number of days it has been raging
 ;;          n-people-displaced as the number of people displaced by fire
 
-(make-fire 100 10 50)
+(define F1 (make-fire 100 10 50))
 
 ;; Storm is one of
 ;;      - hurricane
@@ -96,7 +96,7 @@
                                       (thunderstorm-heading         a-storm))]
         [(fire? a-storm) (... (fire-cover-area         a-storm)
                               (fire-duration           a-storm)
-                              (fire-n-people-displaced a-storm)]))     
+                              (fire-n-people-displaced a-storm))]))     
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -116,8 +116,8 @@
 (define (high-impact? a-storm)
   (cond 
         [(hurricane? a-storm)    (>= (hurricane-category a-storm) 4)]
-        [(thunderstorm? a-storm) (and (> (thunderstorm-rainfall      a-storm) 3) 
-                                      (> (thunderstorm-max-wind-gust a-storm) 60))]
+        [(thunderstorm? a-storm) (and (> (thunderstorm-amount-rainfall a-storm) 3) 
+                                      (> (thunderstorm-max-wind-gust   a-storm) 60))]
         [(fire? a-storm)         (>= (fire-cover-area a-storm) 50)]))
 
 ;; Test cases:
