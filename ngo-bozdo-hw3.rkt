@@ -190,3 +190,95 @@
         [(cons? los) (+ (string-length (first los))
                         (character-count (rest los)))]))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 6: Develop a function all-contain-numbers? that consumes a ListOfString and 
+;; produces true if every string in the list contains at least one numeric character. 
+;; Otherwise, the function produces false. (Hint: check the DrRacket help desk for various string functions). 
+;; Here are two sample test cases (you may need additional test cases):
+;; (check-expect (all-contain-numbers? (cons "CS1101" (cons "A1" (cons "32" empty)))) true)
+;; (check-expect (all-contain-numbers? (cons "CS1101" (cons "A-one" (cons "32" empty)))) false)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; --------------------------------------------- MAIN FUNCTION -----------------------------------------------------
+;; Signature: all-contain-number? : ListOfString -> Boolean
+;; Purpose: return true if a ListOfString contains at least one numeric character
+;;                 false otherwise
+
+(check-expect (all-contain-number? empty) false)
+(check-expect (all-contain-number? (cons "CS1101" (cons "A1" (cons "32" empty)))) true)
+(check-expect (all-contain-number? (cons "CS1101" (cons "A-one" (cons "32" empty)))) false)
+
+(define (all-contain-number? a-los)
+    (cond 
+        [(empty? a-los) false]
+        [(cons? a-los)  (if (almost-end? a-los)
+                            (has-number? (first a-los))
+                            (and (has-number? (first a-los))
+                                 (all-contain-number? (rest a-los))))]))
+                                     
+                           
+
+;; -------------------------------------------- HELPER FUNCTIONS ---------------------------------------------------
+;; Signature: has-number? : String -> Boolean
+;; Purpose: return true if the string has a numeric character
+;;                 false otherwise
+
+(check-expect (has-number? "abc")     false)
+(check-expect (has-number? "abc-()5") true)
+(check-expect (has-number? "a43")     true)
+(check-expect (has-number? "243")     true)
+
+(define (has-number? str)
+    (or (string-contains? "0" str)
+        (string-contains? "1" str)
+        (string-contains? "2" str)
+        (string-contains? "3" str)
+        (string-contains? "4" str)
+        (string-contains? "5" str)
+        (string-contains? "6" str)
+        (string-contains? "7" str)
+        (string-contains? "8" str)
+        (string-contains? "9" str)))
+
+;; Signature: almost-end? : ListOfString -> boolean
+;; Purpose: consume a list having 2 elements at least and
+;;          return true if the ListOfString contains only 2 elements left
+;;                 false otherwise
+
+(check-expect (almost-end? (cons "asd" empty)) true)
+(check-expect (almost-end? (cons "asd" (cons "asd" empty))) false)
+
+(define (almost-end? a-los)
+  (empty? (rest a-los)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 7: Write a data definition to represent a list of natural numbers (call it ListOfNatural). 
+;; Then develop a function lengths-of-strings that consumes a ListOfString and produces a ListOfNatural. 
+;; The function produces a list of the lengths of each of the strings in the given ListOfString.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; A ListOfNatural is one of
+;;       - empty
+;;       - (cons Natural empty)
+
+(define (fun-for-lon a-lon)
+    (cond 
+        [(empty? a-lon) ...]
+        [(cons? a-lon) (... (first (a-lon))
+                            (fun-for-lon (rest a-lon)))]))
+                            
+;; Signature: lengths-of-strings : ListOfString -> ListOfNatural
+;; Purpose: consume a ListOfString and 
+;;          return a ListOfNatural that contains the length of all elements in ListOfString separately
+
+(check-expect (lengths-of-strings empty) empty)
+(check-expect (lengths-of-strings (cons "a" (cons "abc" (cons "Hahah" (cons "sajsd0" empty)))))
+              (cons 1 (cons 3 (cons 5 (cons 6 empty)))))
+
+(define (lengths-of-strings a-los)
+    (cond 
+        [(empty? a-los) empty]
+        [(cons? a-los) (cons (string-length (first a-los))
+                             (lengths-of-strings (rest a-los)))]))
