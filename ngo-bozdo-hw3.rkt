@@ -161,3 +161,32 @@
                                                      (thunderstorm-velocity        a-storm)
                                                       heading)]
         [(fire? a-storm) a-storm]))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 5: Develop a function character-count that consumes a list-of-string and 
+;;            counts the total number of characters in all strings in the list.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; a ListOfString is one of
+;;     - empty
+;;     - (cons String ListOfString)
+
+(define LOS1 empty)
+(define LOS2 (cons "paper" empty))
+(define LOS3 (cons "paper" (cons "pen" (cons "idiosyncrasy" empty))))
+
+;; Signature: charachter-count: list-of-string->number
+;; Interp: consumes a list of string and produces the total number of characters 
+;;         in all strings of the list
+
+(check-expect (character-count LOS1) 0)
+(check-expect (character-count LOS2) 5)
+(check-expect (character-count LOS3) 20)
+
+(define (character-count los)
+  (cond 
+        [(empty? los) 0] 
+        [(cons? los) (+ (string-length (first los))
+                        (character-count (rest los)))]))
+
