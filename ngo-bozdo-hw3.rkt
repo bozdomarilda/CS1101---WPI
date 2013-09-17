@@ -1,3 +1,5 @@
+to Marilda: After registered, you click on "edit", change the code if you want, and click "commit changes" at the bottom of the page
+
 ;; Students:  Hoang Ngo & Marilda Bozdo
 ;; Usernames: hmngo     & mbozdo
 ;; --------------------------------------
