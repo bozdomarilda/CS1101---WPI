@@ -90,10 +90,10 @@
                                    (hurricane-max-winds a-storm)
                                    (hurricane-velocity  a-storm)
                                    (hurricane-heading   a-storm))]
-        [(thunderstorm? a-storm) (... (thunderstorm-rainfall      a-storm)
-                                      (thunderstorm-max-wind-gust a-storm)
-                                      (thunderstorm-velocity      a-storm)
-                                      (thunderstorm-heading       a-storm))]
+        [(thunderstorm? a-storm) (... (thunderstorm-amount-rainfall a-storm)
+                                      (thunderstorm-max-wind-gust   a-storm)
+                                      (thunderstorm-velocity        a-storm)
+                                      (thunderstorm-heading         a-storm))]
         [(fire? a-storm) (... (fire-cover-area         a-storm)
                               (fire-duration           a-storm)
                               (fire-n-people-displaced a-storm)]))     
@@ -116,7 +116,7 @@
 (define (high-impact? a-storm)
   (cond 
         [(hurricane? a-storm)    (>= (hurricane-category a-storm) 4)]
-        [(thunderstorm? a-storm) (and (> (thunderstorm-rainfall a-storm) 3) 
+        [(thunderstorm? a-storm) (and (> (thunderstorm-rainfall      a-storm) 3) 
                                       (> (thunderstorm-max-wind-gust a-storm) 60))]
         [(fire? a-storm)         (>= (fire-cover-area a-storm) 50)]))
 
