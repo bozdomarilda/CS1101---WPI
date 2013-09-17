@@ -147,9 +147,9 @@ to Marilda: After registered, you click on "edit", change the code if you want, 
 ;;         return an unchanged storm if the given storm is a fire
 ;;         otherwise produce a storm same as original with a changed heading
 
-(check-expect (change-heading F1 "somewhere") F1)
-(check-expect (change-heading T1 "nowhere") (make-thunderstorm 5 50 80 "nowhere"))
 (check-expect (change-heading H1 "somewhere") (make-hurricane "Katrina" 5 175 150 "somewhere"))
+(check-expect (change-heading T1 "nowhere") (make-thunderstorm 5 50 80 "nowhere"))
+(check-expect (change-heading F1 "somewhere") F1)
 
 (define (change-heading a-storm heading)
   (cond [(hurricane? a-storm) (make-hurricane (hurricane-name      a-storm) 
