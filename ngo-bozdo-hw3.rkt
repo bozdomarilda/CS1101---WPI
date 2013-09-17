@@ -115,14 +115,6 @@ to Marilda: After registered, you click on "edit", change the code if you want, 
 ;;                      - a fire covering at least 50 square miles
 ;;                false otherwise
 
-(define (high-impact? a-storm)
-  (cond 
-        [(hurricane? a-storm)    (>= (hurricane-category a-storm) 4)]
-        [(thunderstorm? a-storm) (and (> (thunderstorm-amount-rainfall a-storm) 3) 
-                                      (> (thunderstorm-max-wind-gust   a-storm) 60))]
-        [(fire? a-storm)         (>= (fire-cover-area a-storm) 50)]))
-
-;; Test cases:
 (check-expect (high-impact? (make-hurricane "n1" 3 90 90 "nowhere")) false)
 (check-expect (high-impact? (make-hurricane "n2" 4 34 34 "nowhere")) true)
 (check-expect (high-impact? (make-hurricane "n3" 5 24 57 "nowhere")) true)
@@ -134,6 +126,13 @@ to Marilda: After registered, you click on "edit", change the code if you want, 
 (check-expect (high-impact? (make-fire 40 454 236)) false)
 (check-expect (high-impact? (make-fire 50 456 765)) true)
 (check-expect (high-impact? (make-fire 60 645 347)) true)
+
+(define (high-impact? a-storm)
+  (cond 
+        [(hurricane? a-storm)    (>= (hurricane-category a-storm) 4)]
+        [(thunderstorm? a-storm) (and (> (thunderstorm-amount-rainfall a-storm) 3) 
+                                      (> (thunderstorm-max-wind-gust   a-storm) 60))]
+        [(fire? a-storm)         (>= (fire-cover-area a-storm) 50)]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
