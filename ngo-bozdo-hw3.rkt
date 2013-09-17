@@ -52,6 +52,7 @@
 ;;      - thunderstorm
 ;;      - fire
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 2: Provide the template for each data definition you made in Problem 1 (including the itemization).
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -97,3 +98,37 @@
                               (fire-duration           a-storm)
                               (fire-n-people-displaced a-storm)]))     
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 3: Write a function high-impact? that consumes a storm and produces a boolean. 
+;;            The function returns true if the storm is a category 4 or 5 hurricane, 
+;;            a thunderstorm with more than 3 inches of rainfall and winds exceeding 60mph, or
+;;            a fire covering at least 50 square miles.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Signature: high-impact? storm -> boolean
+;; Interp: return true if the storm is
+;;                      - a hurricane with category 4 or 5
+;;                      - a thunderstorm with more than 3 inches of rainfall and winds exceeding 60mph
+;;                      - a fire covering at least 50 square miles
+;;                false otherwise
+
+(define (high-impact? a-storm)
+  (cond 
+        [(hurricane? a-storm)    (>= (hurricane-category a-storm) 4)]
+        [(thunderstorm? a-storm) (and (> (thunderstorm-rainfall a-storm) 3) 
+                                      (> (thunderstorm-max-wind-gust a-storm) 60))]
+        [(fire? a-storm)         (>= (fire-cover-area a-storm) 50)]))
+
+;; Test cases:
+(check-expect (high-impact? (make-hurricane "n1" 3 90 90 "nowhere")) false)
+(check-expect (high-impact? (make-hurricane "n2" 4 34 34 "nowhere")) true)
+(check-expect (high-impact? (make-hurricane "n3" 5 24 57 "nowhere")) true)
+(check-expect (high-impact? (make-thunderstorm 2 50 354 "nowhere")) false)
+(check-expect (high-impact? (make-thunderstorm 3 50 354 "nowhere")) false)
+(check-expect (high-impact? (make-thunderstorm 3 60 543 "nowhere")) false)
+(check-expect (high-impact? (make-thunderstorm 4 60 354 "nowhere")) false)
+(check-expect (high-impact? (make-thunderstorm 4 70 234 "nowhere")) true)
+(check-expect (high-impact? (make-fire 40 454 236)) false)
+(check-expect (high-impact? (make-fire 50 456 765)) true)
+(check-expect (high-impact? (make-fire 60 645 347)) true)
