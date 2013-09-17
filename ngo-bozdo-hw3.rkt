@@ -159,7 +159,7 @@
         [(thunderstorm? a-storm) (make-thunderstorm  (thunderstorm-amount-rainfall a-storm)
                                                      (thunderstorm-max-wind-gust   a-storm)
                                                      (thunderstorm-velocity        a-storm)
-                                                      heading)]
+                                                     heading)]
         [(fire? a-storm) a-storm]))
 
 
@@ -187,8 +187,8 @@
 (define (character-count los)
   (cond 
         [(empty? los) 0] 
-        [(cons? los) (+ (string-length (first los))
-                        (character-count (rest los)))]))
+        [(cons?  los) (+ (string-length (first los))
+                         (character-count (rest los)))]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
