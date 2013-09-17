@@ -132,3 +132,32 @@
 (check-expect (high-impact? (make-fire 40 454 236)) false)
 (check-expect (high-impact? (make-fire 50 456 765)) true)
 (check-expect (high-impact? (make-fire 60 645 347)) true)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 4: Write a function change-heading that consumes a storm and a heading and produces a storm. 
+;;            The storm is returned unchanged if the given storm is a fire. 
+;;            Otherwise, the storm that's produced is a storm the same as the original, 
+;;            except that the heading has been changed to the given heading.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Signature: change-heading: storm string -> storm
+;; Interp: consume a storm and a heading and
+;;         return an unchanged storm if the given storm is a fire
+;;         otherwise produce a storm same as original with a changed heading
+
+(check-expect (change-heading F1 "somewhere") F1)
+(check-expect (change-heading T1 "nowhere") (make-thunderstorm 60 320 203 "nowhere"))
+(check-expect (change-heading H1 "somewhere") (make-hurricane "Crazy" 4 100 900 "somewhere"))
+
+(define (change-heading a-storm heading)
+  (cond [(hurricane? a-storm) (make-hurricane (hurricane-name      a-storm) 
+                                              (hurricane-category  a-storm) 
+                                              (hurricane-max-winds a-storm) 
+                                              (hurricane-velocity  a-storm)
+                                              heading)]
+        [(thunderstorm? a-storm) (make-thunderstorm  (thunderstorm-amount-rainfall a-storm)
+                                                     (thunderstorm-max-wind-gust   a-storm)
+                                                     (thunderstorm-velocity        a-storm)
+                                                      heading)]
+        [(fire? a-storm) a-storm]))
