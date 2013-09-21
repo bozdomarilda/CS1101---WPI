@@ -39,7 +39,7 @@
 (check-expect (count-by-sector empty "cow") 0)
 (check-expect (count-by-sector (cons B1 empty) "Woc") 0)
 (check-expect (count-by-sector (cons B1 (cons B3 empty)) "Cow") 1)
-(check-expect (count-by-sector (cons B4 (cons B3 (cons B1 (cons B2 empty)))) "Woc") 0)
+(check-expect (count-by-sector (cons B4 (cons B3 (cons B1 (cons B2 empty)))) "Moo") 2)
 
 
 (define (count-by-sector alob type-of-business)
