@@ -86,9 +86,9 @@
 ;; Purpose: consume a list of borrowers and
 ;;					return the total money that these borrowers are seeking
 
-(check-expect (fund-needed empty) 0)
-(check-expect (fund-needed (cons B1 (cons B2 (cons B3 empty)))) (+ 5 500 25))
-(check-expect (fund-needed (cons B1 (cons B2 (cons B3 (cons B4 empty))))) (+ 5 500 25 75))
+(check-expect (funds-needed empty) 0)
+(check-expect (funds-needed (cons B1 (cons B2 (cons B3 empty)))) (+ 5 500 75))
+(check-expect (funds-needed (cons B1 (cons B2 (cons B3 (cons B4 empty))))) (+ 5 500 75 25))
 
 (define (funds-needed alob)
 	(cond
