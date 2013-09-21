@@ -6,6 +6,19 @@
 ;; Problem 1: Develop data definitions for Borrower and ListOfBorrower.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-struct borrower (name country kind-of-business requested-loan percentage-raised))
+;; borrower is (make-borrower String String String Number Number)
+;; interp. (make-borrower name country kind-of-business requested-loan percentage-raised) is a borrower waiting for loan with
+;;         name              as the name of the borrower
+;;         country           as the country the borrower is from
+;;         kind-of-business  as the kind of business the funds are needed for
+;;         requested-loan    as the amount of requested loan
+;;         percentage-raised as the percentage raised so far
+
+
+;; ListOfBorrower is one of
+;;      - empty
+;;      - (cons borrower ListOfBorrower)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
