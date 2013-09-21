@@ -39,9 +39,11 @@
 (define (count-by-sector alob type-of-business)
   (cond
       [(empty? alob) 0]
-      [(cons?  alob) (if (string=? (borrower-kind-of-business (first alob)) type-of-business)
-                         (+ 1 (count-by-sector (rest lob)))
-                         (count-by-sector (rest lob)))]))
+      [(cons?  alob) (if (string=? (borrower-kind-of-business (first alob)) 
+      														 type-of-business)
+                         (+ 1 
+                         		(count-by-sector (rest lob) type-of-business))
+                         (count-by-sector (rest lob) type-of-business))]))
                          
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,6 +51,21 @@
 ;; returns the list of borrowers who are from that country.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; find-by-country : String ListOfBorrower -> ListOfBorrower
+;; Purpose: consume the name of country and a list of borrowers
+;;          return the list of borrowers who are from that country
+
+(check-expect (find-by-country "Laos" (cons))) !!!! write test cases
+
+(define (find-by-country country alob)
+	(cond
+			[(empty? alob) empty]
+			[(cons?  alob) (if (string=? (borrower-country (first alob))
+																	 country)
+													(cons (first alob) 
+																(find-by-country country (rest alob)))
+													(find-by-country country (rest alob)))]
+))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -56,3 +73,16 @@
 ;; produces the total amount of money that these borrowers are still seeking 
 ;; (ie, the sum of the amounts requested but not yet raised across all borrowers).
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; funds-needed : ListOfBorrower -> Number
+;; Purpose: consume a list of borrowers and
+;;					return the total money that these borrowers are seeking
+
+;;;; Test cases !!!!!!
+
+(define (funds-needed alob)
+	(cond
+			[(empty? alob) 0]
+			[(cons?  alob) (+ (* (- 1 (borrower-percentage (first alob)))
+													 (borrower-requested-loan (first alob)))
+												(funds-needed (rest alob)))]))
