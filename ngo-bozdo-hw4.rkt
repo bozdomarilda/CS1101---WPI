@@ -16,10 +16,10 @@
 ;;            requested-loan    as the amount of requested loan
 ;;            percentage-raised as the percentage raised so far
 
-(define B1 (make-borrower ("Cow"       "Moo land" "Moo"   10   .5)))
-(define B2 (make-borrower ("Super cow" "Utopia"   "Moo"   1000 .5)))
-(define B3 (make-borrower ("Woc"       "Woc land" "Cow"   100  .25)))
-(define B4 (make-borrower ("Cup"       "Cup land" "Straw" 100  .75)))
+(define B1 (make-borrower "Cow"       "Moo land" "Moo"   10   .5))
+(define B2 (make-borrower "Super cow" "Utopia"   "Moo"   1000 .5))
+(define B3 (make-borrower "Woc"       "Woc land" "Cow"   100  .25))
+(define B4 (make-borrower "Cup"       "Cup land" "Straw" 100  .75))
 
 ;; ListOfBorrower is one of
 ;;      - empty
@@ -38,7 +38,7 @@
 
 (check-expect (count-by-sector empty "cow") 0)
 (check-expect (count-by-sector (cons B1 empty) "Woc") 0)
-(check-expect (count-by-sector (cons B1 (cons B3 empty)) "Woc") 1)
+(check-expect (count-by-sector (cons B1 (cons B3 empty)) "Cow") 1)
 (check-expect (count-by-sector (cons B4 (cons B3 (cons B1 (cons B2 empty)))) "Woc") 0)
 
 
@@ -63,7 +63,7 @@
 
 (check-expect (find-by-country "Nowhere" empty) empty)
 (check-expect (find-by-country "Nowhere" (cons B1 (cons B2 (cons B3 empty)))) empty)
-(check-expect (find-by-country "Utopia"  (cons B1 (cons B2 (cons B4 empty))) (cons B2 empty))
+(check-expect (find-by-country "Utopia"  (cons B1 (cons B2 (cons B4 empty)))) (cons B2 empty))
 
 (define (find-by-country country alob)
 	(cond
@@ -86,7 +86,9 @@
 ;; Purpose: consume a list of borrowers and
 ;;					return the total money that these borrowers are seeking
 
-;;;; Test cases !!!!!!
+(check-expect (fund-needed empty) 0)
+(check-expect (fund-needed (cons B1 (cons B2 (cons B3 empty)))) (+ 5 500 25))
+(check-expect (fund-needed (cons B1 (cons B2 (cons B3 (cons B4 empty))))) (+ 5 500 25 75))
 
 (define (funds-needed alob)
 	(cond
