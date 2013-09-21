@@ -24,7 +24,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 4: Write a function count-by-sector that consumes a list of borrowers and 
-;;  																												 the name of a type of business and 
+;; 							     the name of a type of business and 
 ;; produces the number of borrowers in the list whose loans are for the given kind of business.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -40,10 +40,10 @@
   (cond
       [(empty? alob) 0]
       [(cons?  alob) (if (string=? (borrower-kind-of-business (first alob)) 
-      														 type-of-business)
+      				   type-of-business)
                          (+ 1 
-                         		(count-by-sector (rest lob) type-of-business))
-                         (count-by-sector (rest lob) type-of-business))]))
+                         		(count-by-sector (rest alob) type-of-business))
+                         (count-by-sector (rest alob) type-of-business))]))
                          
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -61,10 +61,10 @@
 	(cond
 			[(empty? alob) empty]
 			[(cons?  alob) (if (string=? (borrower-country (first alob))
-																	 country)
-													(cons (first alob) 
-																(find-by-country country (rest alob)))
-													(find-by-country country (rest alob)))]
+						     country)
+					   (cons (first alob) 
+						 (find-by-country country (rest alob)))
+					   (find-by-country country (rest alob)))]
 ))
 
 
@@ -83,6 +83,6 @@
 (define (funds-needed alob)
 	(cond
 			[(empty? alob) 0]
-			[(cons?  alob) (+ (* (- 1 (borrower-percentage (first alob)))
-													 (borrower-requested-loan (first alob)))
-												(funds-needed (rest alob)))]))
+			[(cons?  alob) (+ (* (- 1 (borrower-percentage-raised (first alob)))
+					     (borrower-requested-loan (first alob)))
+				          (funds-needed (rest alob)))]))
