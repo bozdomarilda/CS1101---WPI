@@ -16,6 +16,10 @@
 ;;            requested-loan    as the amount of requested loan
 ;;            percentage-raised as the percentage raised so far
 
+(define B1 (make-borrower ("Cow"       "Moo land" "Moo"   10   .5)))
+(define B2 (make-borrower ("Super cow" "Utopia"   "Moo"   1000 .5)))
+(define B3 (make-borrower ("Woc"       "Woc land" "Cow"   100  .25)))
+(define B4 (make-borrower ("Cup"       "Cup land" "Straw" 100  .75)))
 
 ;; ListOfBorrower is one of
 ;;      - empty
@@ -33,7 +37,9 @@
 ;;          return the number of borrowers whose loans are the same as the kind of business
 
 (check-expect (count-by-sector empty "cow") 0)
-(check-expect (count-by-sector (cons (make-borrower "A" "NZ" "Bee" 100 .5) empty) "cow") 0)
+(check-expect (count-by-sector (cons B1 empty) "Woc") 0)
+(check-expect (count-by-sector (cons B1 (cons B3 empty)) "Woc") 1)
+(check-expect (count-by-sector (cons B4 (cons B3 (cons B1 (cons B2 empty)))) "Woc") 0)
 
 
 (define (count-by-sector alob type-of-business)
@@ -55,7 +61,9 @@
 ;; Purpose: consume the name of country and a list of borrowers
 ;;          return the list of borrowers who are from that country
 
-(check-expect (find-by-country "Laos" (cons))) !!!! write test cases
+(check-expect (find-by-country "Nowhere" empty) empty)
+(check-expect (find-by-country "Nowhere" (cons B1 (cons B2 (cons B3 empty)))) empty)
+(check-expect (find-by-country "Utopia"  (cons B1 (cons B2 (cons B4 empty))) (cons B2 empty))
 
 (define (find-by-country country alob)
 	(cond
