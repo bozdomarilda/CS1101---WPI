@@ -8,12 +8,13 @@
 
 (define-struct borrower (name country kind-of-business requested-loan percentage-raised))
 ;; borrower is (make-borrower String String String Number Number)
-;; interp. (make-borrower name country kind-of-business requested-loan percentage-raised) is a borrower waiting for loan with
-;;         name              as the name of the borrower
-;;         country           as the country the borrower is from
-;;         kind-of-business  as the kind of business the funds are needed for
-;;         requested-loan    as the amount of requested loan
-;;         percentage-raised as the percentage raised so far
+;; interp. (make-borrower name country kind-of-business requested-loan percentage-raised) is a borrower 
+;;         waiting for loan with
+;;            name              as the name of the borrower
+;;            country           as the country the borrower is from
+;;            kind-of-business  as the kind of business the funds are needed for
+;;            requested-loan    as the amount of requested loan
+;;            percentage-raised as the percentage raised so far
 
 
 ;; ListOfBorrower is one of
@@ -27,7 +28,21 @@
 ;; produces the number of borrowers in the list whose loans are for the given kind of business.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; count-by-sector : ListOfBorrower String -> Number
+;; Purpose: consume a list of borrower and the kind of business then
+;;          return the number of borrowers whose loans are the same as the kind of business
 
+(check-expect (count-by-sector empty "cow") 0)
+(check-expect (count-by-sector (cons (make-borrower "A" "NZ" "Bee" 100 .5) empty) "cow") 0)
+
+
+(define (count-by-sector alob type-of-business)
+  (cond
+      [(empty? alob) 0]
+      [(cons?  alob) (if (string=? (borrower-kind-of-business (first alob)) type-of-business)
+                         (+ 1 (count-by-sector (rest lob)))
+                         (count-by-sector (rest lob)))]))
+                         
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 5: Write a function find-by-country that consumes the name of a country and a list of borrowers and 
