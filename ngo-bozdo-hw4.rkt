@@ -171,6 +171,19 @@
 ;; (ie, the sum of the amounts requested but not yet raised across all borrowers).
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ------------------------------------------- HELPER FUNCTIONS ----------------------------------------------- 
+
+;; Signature: funds-for-one : Borrower -> Number
+;; Interp: Consumes a borrower and produces the amount of money he needs
+
+(check-expect (funds-for-one B1) 5)
+(check-expect (funds-for-one B2) 5000.5)
+
+(define (funds-for-one a-borrower)
+  (* (- 1 (borrower-percentage-raised a-borrower)) 
+     (borrower-requested-loan a-borrower))) 
+     
+     
 ;; -------------------------------------------- MAIN FUNCTION --------------------------------------------------
 
 ;; Signature: funds-needed : ListOfBorrower -> Number
@@ -185,16 +198,3 @@
 	(cond [(empty? alob) 0]
 	      [(cons?  alob) (+  (funds-for-one (first alob))
 				 (funds-needed (rest alob)))]))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; HELPER FUNCTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Signature: funds-for-one: Borrower -> Number
-;; Interp: Consumes a borrower and produces the amount of money he needs
-
-(define (funds-for-one a-borrower)
-  (*(- 1 (borrower-percentage-raised a-borrower)) (borrower-requested-loan a-borrower))) 
-
-(check-expect (funds-for-one B1) 5)
-(check-expect (funds-for-one B2) 5000.5)
-
