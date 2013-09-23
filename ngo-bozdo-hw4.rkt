@@ -65,8 +65,8 @@
 ;; interp: return true if the borrower's kind of business is the same as the given one
 ;;         	  false otherwise
 
-(check-expect (sector? B1 "Moo") true)
-(check-expect (sector? B2 "Cow") false)
+(check-expect (sector? B1 "Moo") true)		;; B1's kind of business: "Moo"
+(check-expect (sector? B2 "Cow") false)		;; B2's kind of business: "Moo"
 
 (define (sector=? a-borrower type-of-bussiness)
   (string=? (borrower-kind-of-business a-borrower) 
