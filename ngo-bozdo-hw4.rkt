@@ -70,7 +70,7 @@
 
 (define (sector=? a-borrower type-of-bussiness)
   (string=? (borrower-kind-of-business a-borrower) 
-  	    type-of-bussiness))
+  	    type-of-business))
 
 
 ;; ---------------------------------------------- MAIN FUNCTION ------------------------------------------------
