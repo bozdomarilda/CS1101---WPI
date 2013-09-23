@@ -98,6 +98,19 @@
 ;; returns the list of borrowers who are from that country.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ------------------------------------------- HELPER FUNCTIONS ----------------------------------------------- 
+
+;; Signature: country=? string borrower -> boolean
+;; Interp: Return true if the given country is the same as the country of the borrower
+;;	 	  false otherwise
+
+(check-expect (country? "Moo land" B1) true)
+(check-expect (country? "Albania" B2) false)
+
+(define (country=? country a-borrower)
+  (string=? country (borrower-country a-borrower)))
+  
+  
 ;; ------------------------------------------- MAIN FUNCTION ---------------------------------------------------
 
 ;; Signature: find-by-country : String ListOfBorrower -> ListOfBorrower
@@ -115,18 +128,6 @@
 				   (cons (first alob) 
 					 (find-by-country country (rest alob)))
 				   (find-by-country country (rest alob)))]))
-
-;; ------------------------------------------- HELPER FUNCTIONS ----------------------------------------------- 
-
-;; Signature: country=? string borrower -> boolean
-;; Interp: Return true if the given country is the same as the country of the borrower
-;;	 	  false otherwise
-
-(check-expect (country? "Moo land" B1) true)
-(check-expect (country? "Albania" B2) false)
-
-(define (country=? country a-borrower)
-  (string=? country (borrower-country a-borrower)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
