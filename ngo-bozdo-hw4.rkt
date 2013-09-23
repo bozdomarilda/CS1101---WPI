@@ -80,9 +80,9 @@
 ;;          return the number of borrowers whose loans are the same as the kind of business
 
 (check-expect (count-by-sector empty "cow") 0)
-(check-expect (count-by-sector (cons B1 empty) "Woc") 0)
-(check-expect (count-by-sector (cons B1 (cons B3 empty)) "Cow") 1)
-(check-expect (count-by-sector (cons B4 (cons B3 (cons B1 (cons B2 empty)))) "Moo") 2)
+(check-expect (count-by-sector (cons B1 empty) "Woc") 0)				;; B1: "Moo"
+(check-expect (count-by-sector (cons B1 (cons B3 empty)) "Cow") 1)			;; B1: "Moo" B3: "Cow"
+(check-expect (count-by-sector (cons B4 (cons B3 (cons B1 (cons B2 empty)))) "Moo") 2)  ;; B1, B2: "Moo" B3: "Cow" B4: "Straw"
 
 (define (count-by-sector alob type-of-business)
   (cond
