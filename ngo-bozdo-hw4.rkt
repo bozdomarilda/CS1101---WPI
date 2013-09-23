@@ -16,10 +16,10 @@
 ;;            requested-loan    as the amount of requested loan
 ;;            percentage-raised as the percentage raised so far
 
-(define B1 (make-borrower "Cow"       "Moo land" "Moo"   10    .5))
-(define B2 (make-borrower "Super cow" "Utopia"   "Moo"   10001 .5))
-(define B3 (make-borrower "Woc"       "Woc land" "Cow"   100   .25))
-(define B4 (make-borrower "Cup"       "Cup land" "Straw" 100   .75))
+(define B1 (make-borrower "Cow"       "Moo land" "Moo"   10    50))
+(define B2 (make-borrower "Super cow" "Utopia"   "Moo"   10001 50))
+(define B3 (make-borrower "Woc"       "Woc land" "Cow"   100   25))
+(define B4 (make-borrower "Cup"       "Cup land" "Straw" 100   75))
 
 ;; ListOfBorrower is one of
 ;;      - empty
@@ -181,7 +181,8 @@
 (check-expect (fund-still-seeking B2) 5000.5)
 
 (define (fund-still-seeking a-borrower)
-  (* (- 1 (borrower-percentage-raised a-borrower)) 
+  (* (/ (- 100 (borrower-percentage-raised a-borrower)) 
+  	100) 
      (borrower-requested-loan a-borrower))) 
      
      
