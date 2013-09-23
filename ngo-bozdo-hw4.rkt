@@ -16,10 +16,10 @@
 ;;            requested-loan    as the amount of requested loan
 ;;            percentage-raised as the percentage raised so far
 
-(define B1 (make-borrower "Cow"       "Moo land" "Moo"   10   .5))
+(define B1 (make-borrower "Cow"       "Moo land" "Moo"   10    .5))
 (define B2 (make-borrower "Super cow" "Utopia"   "Moo"   10001 .5))
-(define B3 (make-borrower "Woc"       "Woc land" "Cow"   100  .25))
-(define B4 (make-borrower "Cup"       "Cup land" "Straw" 100  .75))
+(define B3 (make-borrower "Woc"       "Woc land" "Cow"   100   .25))
+(define B4 (make-borrower "Cup"       "Cup land" "Straw" 100   .75))
 
 ;; ListOfBorrower is one of
 ;;      - empty
@@ -62,7 +62,7 @@
 ;; ------------------------------------------- HELPER FUNCTIONS ------------------------------------------------
 
 ;; signature: sector=?: borrower string -> boolean
-;; interp: return true if the borrower's kind of business is the same as given one
+;; interp: return true if the borrower's kind of business is the same as the given one
 ;;         	  false otherwise
 
 (check-expect (sector? B1 "Moo") true)
