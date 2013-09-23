@@ -134,9 +134,9 @@
 ;; if any of the borrowers in the list are requesting loans in excess of $10,000.                             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; HELPER FUNCTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; HELPER FUNCTIONS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Signature: large-loan? borrower -> boolean
+;; Signature: large-loan? : borrower -> boolean
 ;; Interp: consumes a borrower and produces 
 ;;         true if the borrower's requested loan is bigger than $ 10000
 ;;         false otherwise
@@ -149,21 +149,21 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; MAIN FUNCTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Signature: any-large-loans?: ListOfBorrower -> Boolean
+;; Signature: any-large-loans? : ListOfBorrower -> Boolean
 ;; interp: consumes a list of borrowers and produces
 ;;         true if any of the borrowers is requesting a loan more than $10000
 ;;         false otherwise 
 
 (define (any-large-loans? alob)
   (cond [(empty? alob) false]
-        [(cons? alob) (if (large-loan? (first alob))
-                          true
-                         (any-large-loans? (rest alob)))]))
+        [(cons? alob) (or (large-loan? (first alob))
+                          (any-large-loans? (rest alob)))]))
 
 (check-expect (any-large-loans? empty) false)
 (check-expect (any-large-loans? (cons B1 (cons B2 empty))) true)
 (check-expect (any-large-loans? (cons B2 (cons B1 (cons B3 empty)))) true)
 (check-expect (any-large-loans? (cons B1 (cons B3 (cons B4 empty)))) false)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 7: Write a function funds-needed that consumes a list of borrowers and 
@@ -171,21 +171,21 @@
 ;; (ie, the sum of the amounts requested but not yet raised across all borrowers).
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; MAIN FUNCTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -------------------------------------------- MAIN FUNCTION --------------------------------------------------
 
 ;; Signature: funds-needed : ListOfBorrower -> Number
 ;; Purpose: consume a list of borrowers and
-;;					return the total money that these borrowers are seeking
+;;	    return the total money that these borrowers are seeking
 
 (check-expect (funds-needed empty) 0)
 (check-expect (funds-needed (cons B1 (cons B2 (cons B3 empty)))) (+ 5 5000.5 75))
 (check-expect (funds-needed (cons B1 (cons B2 (cons B3 (cons B4 empty))))) (+ 5 5000.5 75 25))
 
-
 (define (funds-needed alob)
 	(cond [(empty? alob) 0]
 	      [(cons?  alob) (+  (funds-for-one (first alob))
-				          (funds-needed (rest alob)))]))
+				 (funds-needed (rest alob)))]))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; HELPER FUNCTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
