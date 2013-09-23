@@ -68,7 +68,7 @@
 (check-expect (sector=? B1 "Moo") true)		;; B1's kind of business: "Moo"
 (check-expect (sector=? B2 "Cow") false)		;; B2's kind of business: "Moo"
 
-(define (sector=? a-borrower type-of-bussiness)
+(define (sector=? a-borrower type-of-business)
   (string=? (borrower-kind-of-business a-borrower) 
   	    type-of-business))
 
@@ -104,8 +104,8 @@
 ;; Interp: Return true if the given country is the same as the country of the borrower
 ;;	 	  false otherwise
 
-(check-expect (country? "Moo land" B1) true)		;; B1: "Moo land"
-(check-expect (country? "Albania"  B2) false)		;; B2: "Utopia"
+(check-expect (country=? "Moo land" B1) true)		;; B1: "Moo land"
+(check-expect (country=? "Albania"  B2) false)		;; B2: "Utopia"
 
 (define (country=? country a-borrower)
   (string=? country (borrower-country a-borrower)))
