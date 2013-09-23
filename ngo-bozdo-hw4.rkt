@@ -173,13 +173,13 @@
 
 ;; ------------------------------------------- HELPER FUNCTIONS ----------------------------------------------- 
 
-;; Signature: funds-for-one : Borrower -> Number
+;; Signature: fund-still-seeking : Borrower -> Number
 ;; Interp: Consumes a borrower and produces the amount of money he needs
 
-(check-expect (funds-for-one B1) 5)
-(check-expect (funds-for-one B2) 5000.5)
+(check-expect (fund-still-seeking B1) 5)
+(check-expect (fund-still-seeking B2) 5000.5)
 
-(define (funds-for-one a-borrower)
+(define (fund-still-seeking a-borrower)
   (* (- 1 (borrower-percentage-raised a-borrower)) 
      (borrower-requested-loan a-borrower))) 
      
@@ -196,5 +196,5 @@
 
 (define (funds-needed alob)
 	(cond [(empty? alob) 0]
-	      [(cons?  alob) (+  (funds-for-one (first alob))
+	      [(cons?  alob) (+  (fund-still-seeking (first alob))
 				 (funds-needed (rest alob)))]))
