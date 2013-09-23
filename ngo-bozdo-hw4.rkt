@@ -1,4 +1,4 @@
-;; Students:  Hoang Ngo & Marilda Bozdo
+;; Students:  Hoang Ngo &  Marilda Bozdo
 ;; Usernames: hmngo     &  mbozdo
 ;; ------------------------------------------------
 
@@ -25,28 +25,33 @@
 ;;      - empty
 ;;      - (cons borrower ListOfBorrower)
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 2: Provide an example of ListOfBorrower. Your example should contain at least three borrowers.       ;;                                                                                                      ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cons (make-borrower "Cow" "Moo land" "Moo" 10 .5)(cons (make-borrower "Super cow" "Utopia"   "Moo"   1000 .5)(cons (make-borrower "Woc"       "Woc land" "Cow"   100  .25) empty)))
+(cons B1 (cons B2 (cons B3 empty)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 3: Write the template(s) for your data definitions in Problem 1  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; Template for borrower
 (define (fn-for-borrower a-borrower)
-  (.....(borrower-name a-borrower) 
-        (borrower-country a-borrower)
-        (borrower-kind-of-business a-borrower)
-        (borrower-requested-loan a-borrower)
+  (.....(borrower-nam		    a-borrower) 
+        (borrower-country     	    a-borrower)
+        (borrower-kind-of-business  a-borrower)
+        (borrower-requested-loan    a-borrower)
         (borrower-percentage-raised a-borrower)))
 
 
+; Template for ListOfBorrower
 (define (fn-for-lob alob)
-  (cond [(empty? alob) .... ]
-        [(cons? alob) (..( fn-for-borrower (first alob))
-                           (fn-for-lob (rest alob)))]))
+  (cond [(empty? alob) (...)]
+        [(cons?  alob) (... (first alob)
+                            (fn-for-lob (rest alob)))]))
+                            
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 4: Write a function count-by-sector that consumes a list of borrowers and 
@@ -54,8 +59,21 @@
 ;; produces the number of borrowers in the list whose loans are for the given kind of business.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ------------------------------------------- HELPER FUNCTIONS ------------------------------------------------
 
-;;;;;;;;;;;;;;;;;;;;;;;; MAIN FUNCTION;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; signature: sector=?: borrower string -> boolean
+;; interp: return true if the borrower's kind of business is the same as given one
+;;         	  false otherwise
+
+(check-expect (sector? B1 "Moo") true)
+(check-expect (sector? B2 "Cow") false)
+
+(define (sector=? a-borrower type-of-bussiness)
+  (string=? (borrower-kind-of-business a-borrower) 
+  	    type-of-bussiness))
+
+
+;; ---------------------------------------------- MAIN FUNCTION ------------------------------------------------
 
 ;; Signature: count-by-sector : ListOfBorrower String -> Natural
 ;; Purpose: consume a list of borrower and the kind of business then
@@ -69,30 +87,18 @@
 (define (count-by-sector alob type-of-business)
   (cond
       [(empty? alob) 0]
-      [(cons?  alob) (if (sector? (first alob) type-of-business)
+      [(cons?  alob) (if (sector=? (first alob) type-of-business)
                          (+ 1 
-                         		(count-by-sector (rest alob) type-of-business))
+                            (count-by-sector (rest alob) type-of-business))
                          (count-by-sector (rest alob) type-of-business))]))
-                         
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;HELPER FUNCTION;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                  
 
-;; signature: sector?: borrower string -> boolean
-;; interp: consumes a borrower and a type of business and produces true if the kind of businnes of the borrower
-;;         is the same as type of business and 
-;;         false otherwise
-
-(define (sector? a-borrower type-of-bussiness)
-  (string=? (borrower-kind-of-business a-borrower) type-of-bussiness))
-
-(check-expect (sector? B1 "Moo") true)
-(check-expect (sector? B2 "Cow") false)
-                         
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 5: Write a function find-by-country that consumes the name of a country and a list of borrowers and 
 ;; returns the list of borrowers who are from that country.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; MAIN FUNCTION;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ------------------------------------------- MAIN FUNCTION ---------------------------------------------------
 
 ;; Signature: find-by-country : String ListOfBorrower -> ListOfBorrower
 ;; Purpose: consume the name of country and a list of borrowers
@@ -104,24 +110,23 @@
 
 (define (find-by-country country alob)
 	(cond
-			[(empty? alob) empty]
-			[(cons?  alob) (if (country? country (first alob))
-					   (cons (first alob) 
-						 (find-by-country country (rest alob)))
-					   (find-by-country country (rest alob)))]))
+		[(empty? alob) empty]
+		[(cons?  alob) (if (country=? country (first alob))
+				   (cons (first alob) 
+					 (find-by-country country (rest alob)))
+				   (find-by-country country (rest alob)))]))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; HELPER FUNCTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ------------------------------------------- HELPER FUNCTIONS ----------------------------------------------- 
 
-;; Signature: country? string borrower -> boolean
-;; Interp: consume a name of country and a borrower and 
-;;         produce true if the name of the country is the same as the country of the borrower and
-;;         false otherwise
-
-(define (country? country a-borrower)
-  (string=? country (borrower-country a-borrower)))
+;; Signature: country=? string borrower -> boolean
+;; Interp: Return true if the given country is the same as the country of the borrower
+;;	 	  false otherwise
 
 (check-expect (country? "Moo land" B1) true)
 (check-expect (country? "Albania" B2) false)
+
+(define (country=? country a-borrower)
+  (string=? country (borrower-country a-borrower)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -192,3 +197,4 @@
 
 (check-expect (funds-for-one B1) 5)
 (check-expect (funds-for-one B2) 5000.5)
+
