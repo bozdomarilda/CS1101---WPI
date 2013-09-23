@@ -104,8 +104,8 @@
 ;; Interp: Return true if the given country is the same as the country of the borrower
 ;;	 	  false otherwise
 
-(check-expect (country? "Moo land" B1) true)
-(check-expect (country? "Albania" B2) false)
+(check-expect (country? "Moo land" B1) true)		;; B1: "Moo land"
+(check-expect (country? "Albania"  B2) false)		;; B2: "Utopia"
 
 (define (country=? country a-borrower)
   (string=? country (borrower-country a-borrower)))
@@ -118,8 +118,8 @@
 ;;          return the list of borrowers who are from that country
 
 (check-expect (find-by-country "Nowhere" empty) empty)
-(check-expect (find-by-country "Nowhere" (cons B1 (cons B2 (cons B3 empty)))) empty)
-(check-expect (find-by-country "Utopia"  (cons B1 (cons B2 (cons B4 empty)))) (cons B2 empty))
+(check-expect (find-by-country "Nowhere" (cons B1 (cons B2 (cons B3 empty)))) empty)		; B1: Moo land | B2: Utopia | B3: Woc land
+(check-expect (find-by-country "Utopia"  (cons B1 (cons B2 (cons B4 empty)))) (cons B2 empty))	; B1: Moo land | B2: Utopia | B3: Woc land | B4: Cup land
 
 (define (find-by-country country alob)
 	(cond
@@ -145,8 +145,8 @@
 (define (large-loan? a-borrower)
   (> (borrower-requested-loan a-borrower) 10000))
 
-(check-expect (large-loan? B1) false)
-(check-expect (large-loan? B2) true)
+(check-expect (large-loan? B1) false)		; B1: $10
+(check-expect (large-loan? B2) true)		; B2: $10001
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; MAIN FUNCTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -161,9 +161,9 @@
                           (any-large-loans? (rest alob)))]))
 
 (check-expect (any-large-loans? empty) false)
-(check-expect (any-large-loans? (cons B1 (cons B2 empty))) true)
-(check-expect (any-large-loans? (cons B2 (cons B1 (cons B3 empty)))) true)
-(check-expect (any-large-loans? (cons B1 (cons B3 (cons B4 empty)))) false)
+(check-expect (any-large-loans? (cons B1 (cons B2 empty))) true)		; B2: $10001
+(check-expect (any-large-loans? (cons B2 (cons B1 (cons B3 empty)))) true)	; B2: $10001
+(check-expect (any-large-loans? (cons B1 (cons B3 (cons B4 empty)))) false)	; B1: $10 | B2: $100 | B3: $100
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
