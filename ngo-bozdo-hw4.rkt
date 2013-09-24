@@ -39,7 +39,7 @@
 
 ; Template for borrower
 (define (fn-for-borrower a-borrower)
-  (.....(borrower-nam		    a-borrower) 
+  (.....(borrower-name		    a-borrower) 
         (borrower-country     	    a-borrower)
         (borrower-kind-of-business  a-borrower)
         (borrower-requested-loan    a-borrower)
@@ -61,14 +61,14 @@
 
 ;; ------------------------------------------- HELPER FUNCTIONS ------------------------------------------------
 
-;; signature: sector=?: borrower string -> boolean
+;; signature: sector?: borrower string -> boolean
 ;; interp: return true if the borrower's kind of business is the same as the given one
 ;;         	  false otherwise
 
-(check-expect (sector=? B1 "Moo") true)		;; B1's kind of business: "Moo"
-(check-expect (sector=? B2 "Cow") false)		;; B2's kind of business: "Moo"
+(check-expect (sector? B1 "Moo") true)		;; B1's kind of business: "Moo"
+(check-expect (sector? B2 "Cow") false)		;; B2's kind of business: "Moo"
 
-(define (sector=? a-borrower type-of-business)
+(define (sector? a-borrower type-of-business)
   (string=? (borrower-kind-of-business a-borrower) 
   	    type-of-business))
 
@@ -87,7 +87,7 @@
 (define (count-by-sector alob type-of-business)
   (cond
       [(empty? alob) 0]
-      [(cons?  alob) (if (sector=? (first alob) type-of-business)
+      [(cons?  alob) (if (sector? (first alob) type-of-business)
                          (+ 1 
                             (count-by-sector (rest alob) type-of-business))
                          (count-by-sector (rest alob) type-of-business))]))
@@ -100,14 +100,14 @@
 
 ;; ------------------------------------------- HELPER FUNCTIONS ----------------------------------------------- 
 
-;; Signature: country=? string borrower -> boolean
+;; Signature: country? string borrower -> boolean
 ;; Interp: Return true if the given country is the same as the country of the borrower
 ;;	 	  false otherwise
 
-(check-expect (country=? "Moo land" B1) true)		;; B1: "Moo land"
-(check-expect (country=? "Albania"  B2) false)		;; B2: "Utopia"
+(check-expect (country? "Moo land" B1) true)		;; B1: "Moo land"
+(check-expect (country? "Albania"  B2) false)		;; B2: "Utopia"
 
-(define (country=? country a-borrower)
+(define (country? country a-borrower)
   (string=? country (borrower-country a-borrower)))
   
   
@@ -124,7 +124,7 @@
 (define (find-by-country country alob)
 	(cond
 		[(empty? alob) empty]
-		[(cons?  alob) (if (country=? country (first alob))
+		[(cons?  alob) (if (country? country (first alob))
 				   (cons (first alob) 
 					 (find-by-country country (rest alob)))
 				   (find-by-country country (rest alob)))]))
