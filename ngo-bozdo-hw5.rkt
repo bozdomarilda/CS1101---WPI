@@ -106,8 +106,8 @@
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; author-of-book? : ListOfBook number string -> boolean
 ;; Purpose: find the book that has the given isbn first (take advantage of short-circuit evaluation), 
-;;              and return false if couldn't find. Then
-;;          find the given author in the found book's list of authors, 
+;;              and return false if couldn't find. If found, then
+;;          find the given author in the book's list of authors, 
 ;;              return true if found and false otherwise
 
 (define (author-of-book? lob isbn author)
@@ -116,3 +116,19 @@
         [(cons?  lob) (or (and (is-isbn?   isbn   (first lob)) 
                                (has-author? author (first lob)))
                           (author-of-book? (rest lob)))]))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 7: Write a function add-new-book. 
+;;            The function consumes a binary search tree, an ISBN, title, a list of authors, 
+;;                              and a price and adds a new book with the given information to the binary search tree. 
+;;            The new book has zero copies sold. Make sure that the tree that is produced is a binary search tree. 
+;; You may assume that the ISBN number of the book to be added does not already exist in the given tree. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
+;; add-new-book : book string ListOfAuthor Number -> book
+;; Purpose: add a new book with given information to binary search tree
+
+(define (add-new-book abook title authors price)
+    ())
