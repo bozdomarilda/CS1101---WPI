@@ -126,9 +126,13 @@
 ;; You may assume that the ISBN number of the book to be added does not already exist in the given tree. 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define INIT-COPIES-SOLD 0)
+
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; add-new-book : book string ListOfAuthor Number -> book
 ;; Purpose: add a new book with given information to binary search tree
 
-(define (add-new-book abook title authors price)
-    ())
+(define (add-new-book abook isbn title authors price)
+    (if (smaller-isbn? isbn (book-isbn abook)
+        (insert (make-book title authors price INIT-COPIES-SOLD isbn) (book-book-list  abook)))))
+         
