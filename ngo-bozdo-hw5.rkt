@@ -105,8 +105,10 @@
                           
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; author-of-book? : ListOfBook number string -> boolean
-;; Purpose: find the book that has the given isbn first, and return false if couldn't find. Then
-;;          find the given author in the found book's list of authors, return true if found and false otherwise
+;; Purpose: find the book that has the given isbn first (take advantage of short-circuit evaluation), 
+;;              and return false if couldn't find. Then
+;;          find the given author in the found book's list of authors, 
+;;              return true if found and false otherwise
 
 (define (author-of-book? lob isbn author)
     (cond
