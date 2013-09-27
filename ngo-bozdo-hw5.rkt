@@ -82,9 +82,35 @@
 ;; such that it performs as few comparisons as is necessary to find the correct ISBN number in the tree.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ---------------------------------------------- HELPER FUNCTIONS -------------------------------------------------------
+;; is-isbn? : number book -> boolean
+;; Purpose: return true if the book's isbn is the same as the given isbn
+;;                 false otherwise
+
+(define (is-isbn? isbn abook)
+    (= isbn
+       (book-isbn abook)))
+      
+      
+;; has-author? : string book -> boolean
+;; Purpose: return true if the book's list of authors has the given author
+;;                 false otherwise
+
+(define (has-author? author abook)
+    (cond
+        [(empty? loa) false]
+        [(cons?  loa) (or (string=? author (first loa)
+                          (has-author? (rest loa))))]))
+                          
+                          
+;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; author-of-book? : ListOfBook number string -> boolean
-;; Purpose: return true if one of the authors of the book with the given ISBN is the same as the given name
-;;                 false if the book with the given ISBN doesn't exist / doesn't have the given author
+;; Purpose: find the book that has the given isbn first, and return false if couldn't find. Then
+;;          find the given author in the found book's list of authors, return true if found and false otherwise
 
 (define (author-of-book? lob isbn author)
-    ())
+    (cond
+        [(empty? lob) false]
+        [(cons?  lob) (or (and (is-isbn?   isbn   (first lob)) 
+                               (has-author? author (first lob)))
+                          (author-of-book? (rest lob)))]))
