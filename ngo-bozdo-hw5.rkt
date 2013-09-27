@@ -9,14 +9,14 @@
 ; Data definition for book
 
 (define-struct book (title authors cost n-sold isbn book-s book-b))
-;; a book is (make-book String ListOfAuthor Number Number Number ListOfBook)
-;; interp. (make-book title authors cost n-sold isbn book-list) is a book that has
+;; a book is (make-book String ListOfAuthor Number Number Number TreeNode TreeNode)
+;; interp. (make-book title authors cost n-sold isbn book-s book-b) is a book that has
 ;;        title   as the title of the book
 ;;        authors as the list of authors of the book
 ;;        cost    as the cost of the book
 ;;        n-sold  as the number of copies sold
 ;;        book-s  as the book having smaller isbn than the current book
-;;        book-b  as the book having bigger isbn than the current book 
+;;        book-b  as the book having bigger isbn than the current book
 
 
 ; Data definition for ListOfAuthor
@@ -24,6 +24,13 @@
 ;; ListOfAuthor is one of
 ;;      - empty
 ;;      - (cons String ListOfAuthor)
+
+
+; Data definition for TreeNode
+
+;; TreeNode is one of
+;;      - 'unknown
+;;      - (make-book title authors cost n-sold isbn book-s book-b)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -45,7 +52,8 @@
          (book-cost                    abook)
          (book-n-sold                  abook)
          (book-isbn                    abook)
-         (fun-for-lob (book-book-list  abook))))
+         (fun-for-treenode (book-book-s abook)
+         (fun-for-treenode (book-book-b abook))))
 
        
 ; Template for ListOfAuthor
@@ -55,6 +63,20 @@
         [(empty? loa) (...)]
         [(cons?  loa) (... (first loa)
                            (fun-for-author (rest loa)))]))
+                           
+                           
+; Template for TreeNode
+
+(define (fun-for-treenode tn)
+    (cond 
+        [(symbol? tn) (...)]
+        [(book?   tn) (... (book-title                    abook)
+                           (fun-for-author (book-authors  abook))
+                           (book-cost                     abook)
+                           (book-n-sold                   abook)
+                           (book-isbn                     abook)
+                           (fun-for-treenode (book-book-s abook))
+                           (fun-for-treenode (book-book-b abook)))]))
                            
                            
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
