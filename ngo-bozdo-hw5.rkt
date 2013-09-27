@@ -8,28 +8,22 @@
 
 ; Data definition for book
 
-(define-struct book (title authors cost n-sold isbn book-list))
+(define-struct book (title authors cost n-sold isbn book-s book-b))
 ;; a book is (make-book String ListOfAuthor Number Number Number ListOfBook)
 ;; interp. (make-book title authors cost n-sold isbn book-list) is a book that has
-;;        title     as the title of the book
-;;        authors   as the list of authors of the book
-;;        cost      as the cost of the book
-;;        n-sold    as the number of copies sold
-;;        book-list as the list of book next to this book
+;;        title   as the title of the book
+;;        authors as the list of authors of the book
+;;        cost    as the cost of the book
+;;        n-sold  as the number of copies sold
+;;        book-s  as the book having smaller isbn than the current book
+;;        book-b  as the book having bigger isbn than the current book 
 
 
 ; Data definition for ListOfAuthor
 
 ;; ListOfAuthor is one of
-;;      -  empty
-;;      - (cons String ListOfAuthor)
-
-
-; Data definition for ListOfBook
-
-;; ListOfBook is one of
 ;;      - empty
-;;      - (cons book ListOfBook)
+;;      - (cons String ListOfAuthor)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -61,15 +55,6 @@
         [(empty? loa) (...)]
         [(cons?  loa) (... (first loa)
                            (fun-for-author (rest loa)))]))
-                           
-                           
-; Template for ListOfBook
-
-(define (fun-for-lob lob)
-    (cond
-        [(empty? lob) (...)]
-        [(cons?  lob) (... (fun-for-book (first lob))
-                           (fun-for-lob (rest lob)))]))
                            
                            
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -120,8 +105,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 7: Write a function add-new-book. 
-;;            The function consumes a binary search tree, an ISBN, title, a list of authors, 
-;;                              and a price and adds a new book with the given information to the binary search tree. 
+;;            The function consumes a binary search tree, an ISBN, title, a list of authors, and a price
+;;                         and adds a new book with the given information to the binary search tree. 
 ;;            The new book has zero copies sold. Make sure that the tree that is produced is a binary search tree. 
 ;; You may assume that the ISBN number of the book to be added does not already exist in the given tree. 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -133,6 +118,7 @@
 ;; Purpose: add a new book with given information to binary search tree
 
 (define (add-new-book abook isbn title authors price)
-    (if (smaller-isbn? isbn (book-isbn abook)
-        (insert (make-book title authors price INIT-COPIES-SOLD isbn) (book-book-list  abook)))))
+        (    
+        (insert title authors price INIT-COPIES-SOLD isbn (book-book-list abook))))
+        
          
