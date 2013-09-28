@@ -90,7 +90,17 @@
         [(symbol? abst) (...)]
         [(book?   abst) (... (fun-for-book abst))]))
                             
-                           
+              
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 5: Write a function copies-sold which consumes a binary search tree and an ISBN number, 
+;;            and returns the number of copies sold for the book with the given ISBN. 
+;;            If a book with the given ISBN doesn't exist in the tree, the function should return -1. 
+;; Your function should be written efficiently, 
+;;                  such that it performs as few comparisons as is necessary to find the correct ISBN number in the tree.                           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 6: Write a function author-of-book? which consumes a binary search tree,
 ;;                                                            an ISBN number, 
