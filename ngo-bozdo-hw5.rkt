@@ -137,20 +137,8 @@
 (check-expect (has-author? "Charles Dickens" BST1) true)
 
 (define (has-author? author abook)
-    (contain? author (book-authors abook)))
-  
-;; contain? : string ListOfAuthor -> boolean
-;; Purpose: return true if the string is in ListOfAuthor
-
-(check-expect (contain? "A" (cons "B" (cons "C" empty))) false)
-(check-expect (contain? "A" (cons "A"(cons "B" (cons "C" empty)))) true)
-
-(define (contain? author loa)
-    (cond
-        [(empty? loa) false]
-        [(cons?  loa) (or (string=? author (first loa))
-                          (contain? author (rest loa)))]))
-                          
+    (member author (book-authors abook)))
+                 
                           
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; author-of-book? : BST number string -> boolean
