@@ -8,7 +8,7 @@
 
 ; Data definition for binary-tree
 
-;; A binary tree is either
+;; A binary-tree is either
 ;;      - 'unknown
 ;;      - (make-book title authors cost n-sold isbn ltbt rtbt) in which
 ;;            title   is a string
@@ -17,6 +17,7 @@
 ;;            n-sold  is a number
 ;;            ltbt    is a binary tree
 ;;            rtbt    is a binary tree
+
 
 ; Data definition for book
 
@@ -57,8 +58,8 @@
          (book-cost                    abook)
          (book-n-sold                  abook)
          (book-isbn                    abook)
-         (fun-for-treenode (book-book-s abook)
-         (fun-for-treenode (book-book-b abook))))
+         (fun-for-bt (book-ltbt        abook)
+         (fun-for-bt (book-rybt        abook))))
 
        
 ; Template for ListOfAuthor
@@ -70,19 +71,13 @@
                            (fun-for-author (rest loa)))]))
                            
                            
-; Template for TreeNode
+; Template for binary-tree
 
-(define (fun-for-treenode tn)
+(define (fun-for-bt abt)
     (cond 
-        [(symbol? tn) (...)]
-        [(book?   tn) (... (book-title                    abook)
-                           (fun-for-author (book-authors  abook))
-                           (book-cost                     abook)
-                           (book-n-sold                   abook)
-                           (book-isbn                     abook)
-                           (fun-for-treenode (book-book-s abook))
-                           (fun-for-treenode (book-book-b abook)))]))
-                           
+        [(symbol? abt) (...)]
+        [(book?   abt) (... (fun-for-book abt))]))
+                            
                            
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 6: Write a function author-of-book? which consumes a binary search tree,
@@ -116,17 +111,17 @@
                           
                           
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
-;; author-of-book? : ListOfBook number string -> boolean
+;; author-of-book? : binary-tree number string -> boolean
 ;; Purpose: find the book that has the given isbn first (take advantage of short-circuit evaluation), 
 ;;              and return false if couldn't find. If found, then
 ;;          find the given author in the book's list of authors, 
 ;;              return true if found and false otherwise
 
-(define (author-of-book? lob isbn author)
+(define (author-of-book? bt isbn author)
     (cond
-        [(empty? lob) false]
-        [(cons?  lob) (or (and (is-isbn?   isbn   (first lob)) 
-                               (has-author? author (first lob)))
+        [(symbol? bt) false]
+        [(book?   bt) (or (and (is-isbn?    isbn   bt) 
+                               (has-author? author bt))
                           (author-of-book? (rest lob)))]))
 
 
