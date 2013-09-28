@@ -89,8 +89,16 @@
     (cond 
         [(symbol? abst) (...)]
         [(book?   abst) (... (fun-for-book abst))]))
-                            
-              
+   
+   
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 4: Write a function increase-price that consumes a binary search tree of books and 
+;;	a number representing a per cent increase and 
+;;            produces a binary search tree the same as the original 
+;;	except that the cost of each book in the tree has been increased by the given percentage.                            
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 5: Write a function copies-sold which consumes a binary search tree and an ISBN number, 
 ;;            and returns the number of copies sold for the book with the given ISBN. 
@@ -222,7 +230,7 @@
                                               (book-n-sold                  book2)
                                               (book-isbn                    book2)
                                               (book-ltbt                    book2)
-                                              book1))])                                 ;; Add to right
+                                              book1)]))                                 ;; Add to right
         
 
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
