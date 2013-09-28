@@ -45,16 +45,17 @@
 ;;            ordered according to the binary search tree property, on the ISBN number.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define BST1 (make-book "A Christmas Carol"                                                             ; 0. Root
-                        (cons "Charles Dickens" empty) 50 10000 10
-                    (make-book "Oliver Twist"                                                           ; 0. Left branch 1
-                                (cons "Charles Dickens" empty) 50 20000 6 'unknown 'unknown)
-                    (make-book "Great Expectations"                                                     ; 0. Right branch 2
-                                (cons "Charles Dickens" empty) 50 50000 15
-                            (make-book "David Copperfield"                                              ; 2. Left branch 3
-                                        (cons "Charles Dickens" empty) 50 20000 11 'unknown 'unknown)
-                            (make-book "Bleak House"                                                    ; 2. Right branch 4
-                                        (cons "Charles Dickens" empty) 50 90000 20 'unknown 'unknown))))
+(define BST1 (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 50 10000 10                  ; Root 0
+                    (make-book "Oliver Twist"  (cons "Charles Dickens" empty) 50 20000 6                ; 0. Left branch 1
+                               'unknown 
+                               'unknown)
+                    (make-book "Great Expectations" (cons "Charles Dickens" empty) 50 50000 15          ; 0. Right branch 2
+                            (make-book "David Copperfield" (cons "Charles Dickens" empty) 50 20000 11   ; R2. Left branch 3
+                                        'unknown 
+                                        'unknown)
+                            (make-book "Bleak House" (cons "Charles Dickens" empty) 50 90000 20         ; R2. Right branch 4
+                                        'unknown 
+                                        'unknown))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
