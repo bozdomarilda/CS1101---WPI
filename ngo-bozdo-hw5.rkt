@@ -59,7 +59,7 @@
          (book-n-sold                  abook)
          (book-isbn                    abook)
          (fun-for-bt (book-ltbt        abook)
-         (fun-for-bt (book-rybt        abook))))
+         (fun-for-bt (book-rtbt        abook))))
 
        
 ; Template for ListOfAuthor
@@ -117,12 +117,12 @@
 ;;          find the given author in the book's list of authors, 
 ;;              return true if found and false otherwise
 
-(define (author-of-book? bt isbn author)
+(define (author-of-book? abt isbn author)
     (cond
-        [(symbol? bt) false]
-        [(book?   bt) (or (and (is-isbn?    isbn   bt) 
-                               (has-author? author bt))
-                          (author-of-book? (rest lob)))]))
+        [(symbol? abt) false]
+        [(book?   abt) (or (and (is-isbn?    isbn   abt) 
+                                (has-author? author abt))
+                           (author-of-book? (rest lob)))]))         ;; !!! pRoblem
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -135,12 +135,39 @@
 
 (define INIT-COPIES-SOLD 0)
 
+;; ---------------------------------------------- HELPER FUNCTIONS -------------------------------------------------------
+;; insert : string ListOfAuthor number number book -> book
+;; Purpose: insert a new book with given information to a binary search tree
+
+(define (insert title authors price isbn abook)
+    (if (> isbn (book-isbn abook)
+        (cond
+            [(symbol? (book-rtbt abook)) (make-book (book-title                   abook)
+                                                    (book-authors                 abook)
+                                                    (book-cost                    abook)
+                                                    (book-n-sold                  abook)
+                                                    (book-isbn                    abook)
+                                                    (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)
+                                                    (book-rtbt                    abook))]
+            [(book?   (book-rtbt abook)) (insert title authors price isbn (book-rtbt abook))]))
+         (cond
+            [(symbol? (book-ltbt abook)) (make-book (book-title                   abook)
+                                                    (book-authors                 abook)
+                                                    (book-cost                    abook)
+                                                    (book-n-sold                  abook)
+                                                    (book-isbn                    abook)
+                                                    (book-ltbt                    abook)
+                                                    (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown))]
+            [(book?   (book-ltbt abook)) (insert title authors price isbn (book-ltbt abook))]))
+
+
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
-;; add-new-book : book string ListOfAuthor Number -> book
+;; add-new-book : binary-tree string ListOfAuthor Number -> binary-tree
 ;; Purpose: add a new book with given information to binary search tree
 
-(define (add-new-book abook isbn title authors price)
-        (    
-        (insert title authors price INIT-COPIES-SOLD isbn (book-book-list abook))))
+(define (add-new-book abt isbn title authors price)
+    (cond 
+        [(symbol? abt) (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)]
+        [(book?   abt) (insert title authors price isbn abt)]))
         
          
