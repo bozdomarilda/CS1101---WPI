@@ -140,26 +140,39 @@
 ;; Purpose: insert a new book with given information to a binary search tree
 
 (define (insert title authors price isbn abook)
-    (if (> isbn (book-isbn abook)
+    (if (< isbn (book-isbn abook)
         (cond
-            [(symbol? (book-rtbt abook)) (make-book (book-title                   abook)
-                                                    (book-authors                 abook)
-                                                    (book-cost                    abook)
-                                                    (book-n-sold                  abook)
-                                                    (book-isbn                    abook)
-                                                    (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)
-                                                    (book-rtbt                    abook))]
+            [(symbol? (book-rtbt abook)) (add-to-tree "left"
+                                                      (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)
+                                                      abook)]
             [(book?   (book-rtbt abook)) (insert title authors price isbn (book-rtbt abook))]))
          (cond
-            [(symbol? (book-ltbt abook)) (make-book (book-title                   abook)
-                                                    (book-authors                 abook)
-                                                    (book-cost                    abook)
-                                                    (book-n-sold                  abook)
-                                                    (book-isbn                    abook)
-                                                    (book-ltbt                    abook)
-                                                    (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown))]
+            [(symbol? (book-ltbt abook)) (add-to-tree "right"
+                                                      (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)
+                                                      abook))]
             [(book?   (book-ltbt abook)) (insert title authors price isbn (book-ltbt abook))]))
 
+;; add-to-tree : String book book -> book
+;; Purpose: make a new book based on the right given book that has
+;;              the left given book added to either left branch or right branch of the binary search tree
+;;          depending on the value of the string "left" or "right"
+
+(define (add-to-tree branch book1 book2)
+    (if (string=? "left" branch)
+        (make-book (book-title                   book2)
+                   (book-authors                 book2)
+                   (book-cost                    book2)
+                   (book-n-sold                  book2)
+                   (book-isbn                    book2)
+                   book1
+                   (book-rtbt                    book2)))
+        (make-book (book-title                   book2)
+                   (book-authors                 book2)
+                   (book-cost                    book2)
+                   (book-n-sold                  book2)
+                   (book-isbn                    book2)
+                   (book-ltbt                    book2)
+                   book1))
 
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; add-new-book : binary-tree string ListOfAuthor Number -> binary-tree
