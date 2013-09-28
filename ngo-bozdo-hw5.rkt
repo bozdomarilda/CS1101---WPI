@@ -242,15 +242,15 @@
                           (make-book "Oliver Twist" (cons "Charles Dickens" empty) 50 20000 6 
                                      'unknown 
                                      'unknown)
-                    (make-book "Great Expectations" (cons "Charles Dickens" empty) 50 50000 15
-                               (make-book "David Copperfield" (cons "Charles Dickens" empty) 50 20000 11 
-                                          'unknown 
-                                          'unknown)
-                               (make-book "Bleak House" (cons "Charles Dickens" empty) 50 90000 20 
-                                          'unknown 
-                                          (make-book "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50 0 25 
-                                                     'unknown 
-                                                     'unknown)))))
+                          (make-book "Great Expectations" (cons "Charles Dickens" empty) 50 50000 15
+                                     (make-book "David Copperfield" (cons "Charles Dickens" empty) 50 20000 11 
+                                                'unknown 
+                                                'unknown)
+                                     (make-book "Bleak House" (cons "Charles Dickens" empty) 50 90000 20 
+                                                'unknown 
+                                                (make-book "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50 0 25 
+                                                           'unknown 
+                                                           'unknown)))))
                                          
 (check-expect (add-new-book BST1 12  "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
               (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 50 10000 10
