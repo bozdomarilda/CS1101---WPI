@@ -6,17 +6,29 @@
 ;; Problem 1: Write the data definition(s) needed for this binary search tree.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; Data definition for binary-tree
+
+;; A binary tree is either
+;;      - 'unknown
+;;      - (make-book title authors cost n-sold isbn ltbt rtbt) in which
+;;            title   is a string
+;;            authors is a string
+;;            cost    is a number
+;;            n-sold  is a number
+;;            ltbt    is a binary tree
+;;            rtbt    is a binary tree
+
 ; Data definition for book
 
-(define-struct book (title authors cost n-sold isbn book-s book-b))
-;; a book is (make-book String ListOfAuthor Number Number Number TreeNode TreeNode)
-;; interp. (make-book title authors cost n-sold isbn book-s book-b) is a book that has
+(define-struct book (title authors cost n-sold isbn lfbt rtbt))
+;; a book is (make-book String ListOfAuthor Number Number Number book-node book-node)
+;; interp. (make-book title authors cost n-sold isbn ltbt rtbt) is a book that has
 ;;        title   as the title of the book
 ;;        authors as the list of authors of the book
 ;;        cost    as the cost of the book
 ;;        n-sold  as the number of copies sold
-;;        book-s  as the book having smaller isbn than the current book
-;;        book-b  as the book having bigger isbn than the current book
+;;        ltbt    as a binary tree of book
+;;        rtbt    as a binary tree of book
 
 
 ; Data definition for ListOfAuthor
@@ -24,13 +36,6 @@
 ;; ListOfAuthor is one of
 ;;      - empty
 ;;      - (cons String ListOfAuthor)
-
-
-; Data definition for TreeNode
-
-;; TreeNode is one of
-;;      - 'unknown
-;;      - (make-book title authors cost n-sold isbn book-s book-b)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
