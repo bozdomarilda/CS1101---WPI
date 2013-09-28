@@ -1,35 +1,35 @@
 ;; Students:  Hoang Ngo & Marilda Bozdo
-;; Usernames: hmngo		& mbozdo
+;; Usernames: hmngo     & mbozdo
 ;; ----------------------------------------
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 1: Write the data definition(s) needed for this binary search tree.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Data definition for binary-tree
+; Data definition for BST
 
-;; A binary-tree is either
+;; A BST is either
 ;;      - 'unknown
 ;;      - (make-book title authors cost n-sold isbn ltbt rtbt) in which
 ;;            title   is a string
 ;;            authors is a string
 ;;            cost    is a number
 ;;            n-sold  is a number
-;;            ltbt    is a binary tree
-;;            rtbt    is a binary tree
+;;            ltbt    is a BST
+;;            rtbt    is a BST
 
 
 ; Data definition for book
 
-(define-struct book (title authors cost n-sold isbn lfbt rtbt))
+(define-struct book (title authors cost n-sold isbn ltbt rtbt))
 ;; a book is (make-book String ListOfAuthor Number Number Number book-node book-node)
 ;; interp. (make-book title authors cost n-sold isbn ltbt rtbt) is a book that has
 ;;        title   as the title of the book
 ;;        authors as the list of authors of the book
 ;;        cost    as the cost of the book
 ;;        n-sold  as the number of copies sold
-;;        ltbt    as a binary tree of book
-;;        rtbt    as a binary tree of book
+;;        ltbt    as a BST
+;;        rtbt    as a BST
 
 
 ; Data definition for ListOfAuthor
@@ -59,7 +59,7 @@
          (book-n-sold                  abook)
          (book-isbn                    abook)
          (fun-for-bt (book-ltbt        abook)
-         (fun-for-bt (book-rtbt        abook))))
+         (fun-for-bt (book-rtbt        abook)))))
 
        
 ; Template for ListOfAuthor
@@ -71,12 +71,12 @@
                            (fun-for-author (rest loa)))]))
                            
                            
-; Template for binary-tree
+; Template for BST
 
-(define (fun-for-bt abt)
+(define (fun-for-bst abst)
     (cond 
-        [(symbol? abt) (...)]
-        [(book?   abt) (... (fun-for-book abt))]))
+        [(symbol? abst) (...)]
+        [(book?   abst) (... (fun-for-book abst))]))
                             
                            
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -103,11 +103,11 @@
 ;; Purpose: return true if the book's list of authors has the given author
 ;;                 false otherwise
 
-(define (has-author? author abook)
+(define (has-author? author loa)
     (cond
         [(empty? loa) false]
-        [(cons?  loa) (or (string=? author (first loa)
-                          (has-author? (rest loa))))]))
+        [(cons?  loa) (or (string=? author (first loa))
+                          (has-author? author (rest loa)))]))
                           
                           
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
@@ -117,12 +117,13 @@
 ;;          find the given author in the book's list of authors, 
 ;;              return true if found and false otherwise
 
-(define (author-of-book? abt isbn author)
+(define (author-of-book? abst isbn author)
     (cond
-        [(symbol? abt) false]
-        [(book?   abt) (or (and (is-isbn?    isbn   abt) 
-                                (has-author? author abt))
-                           (author-of-book? (rest lob)))]))         ;; !!! pRoblem
+        [(symbol? abst) false]
+        [(book?   abst) (cond 
+                             [(< isbn (book-isbn abst)) (author-of-book? (book-ltbt abst) isbn author)]
+                             [(> isbn (book-isbn abst)) (author-of-book? (book-rtbt abst) isbn author)]
+                             [else (has-author? author (book-authors abst))])]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -140,17 +141,17 @@
 ;; Purpose: insert a new book with given information to a binary search tree
 
 (define (insert title authors price isbn abook)
-    (if (< isbn (book-isbn abook)
+    (if (< isbn (book-isbn abook))
         (cond
             [(symbol? (book-rtbt abook)) (add-to-tree "left"
                                                       (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)
                                                       abook)]
-            [(book?   (book-rtbt abook)) (insert title authors price isbn (book-rtbt abook))]))
+            [(book?   (book-rtbt abook)) (insert title authors price isbn (book-rtbt abook))])
          (cond
             [(symbol? (book-ltbt abook)) (add-to-tree "right"
                                                       (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)
-                                                      abook))]
-            [(book?   (book-ltbt abook)) (insert title authors price isbn (book-ltbt abook))]))
+                                                      abook)]
+            [(book?   (book-ltbt abook)) (insert title authors price isbn (book-ltbt abook))])))
 
 ;; add-to-tree : String book book -> book
 ;; Purpose: make a new book based on the right given book that has
@@ -165,22 +166,23 @@
                    (book-n-sold                  book2)
                    (book-isbn                    book2)
                    book1
-                   (book-rtbt                    book2)))
+                   (book-rtbt                    book2))
         (make-book (book-title                   book2)
                    (book-authors                 book2)
                    (book-cost                    book2)
                    (book-n-sold                  book2)
                    (book-isbn                    book2)
                    (book-ltbt                    book2)
-                   book1))
+                   book1)))
+
 
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; add-new-book : binary-tree string ListOfAuthor Number -> binary-tree
 ;; Purpose: add a new book with given information to binary search tree
 
-(define (add-new-book abt isbn title authors price)
+(define (add-new-book abst isbn title authors price)
     (cond 
-        [(symbol? abt) (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)]
-        [(book?   abt) (insert title authors price isbn abt)]))
+        [(symbol? abst) (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)]
+        [(book?   abst) (insert title authors price isbn abst)]))
         
          
