@@ -11,12 +11,9 @@
 ;; A BST is either
 ;;      - 'unknown
 ;;      - (make-book title authors cost n-sold isbn ltbt rtbt) in which
-;;            title   is a string
-;;            authors is a string
-;;            cost    is a number
-;;            n-sold  is a number
-;;            ltbt    is a BST
-;;            rtbt    is a BST
+;;            title & authors       is a string
+;;            cost  & n-sold & isbn is a number
+;;            ltbt  & rtbt          is a BST
 
 
 ; Data definition for book
