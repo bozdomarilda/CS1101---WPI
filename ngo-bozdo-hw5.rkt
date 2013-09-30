@@ -14,6 +14,8 @@
 ;;            title & authors       is a string
 ;;            cost  & n-sold & isbn is a number
 ;;            ltbt  & rtbt          is a BST
+;;            ltbt contains books that have smaller ISBN than current one's
+;;            rtbt contains books that have bigger  ISBN than current one's
 
 
 ; Data definition for book
