@@ -64,13 +64,13 @@
 ; Template for book
 
 (define (fun-for-book abook)
-    (... (book-title                   abook)
-         (fun-for-author (book-authors abook))
-         (book-cost                    abook)
-         (book-n-sold                  abook)
-         (book-isbn                    abook)
-         (fun-for-bt (book-ltbt        abook)
-         (fun-for-bt (book-rtbt        abook)))))
+    (... (book-title                    abook)
+         (fun-for-author (book-authors  abook))
+         (book-cost                     abook)
+         (book-n-sold                   abook)
+         (book-isbn                     abook)
+         (fun-for-bst (book-ltbt        abook)
+         (fun-for-bst (book-rtbt        abook)))))
 
        
 ; Template for ListOfAuthor
