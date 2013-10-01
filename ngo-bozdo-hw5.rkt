@@ -123,15 +123,15 @@
 
 (check-expect (increase-price 'unknown 20) 'unknown)
 (check-expect (increase-price BST1 10) 
-              (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 55 10000 10                  
+              (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 55 10000 10                     ; 50 -> 55
                      (make-book "Oliver Twist"  (cons "Charles Dickens" empty) 55 20000 6 
                                 'unknown 
                                 'unknown)
-                     (make-book "Great Expectations" (cons "Charles Dickens" empty) 55 50000 15         
-                                (make-book "David Copperfield" (cons "Charles Dickens" empty) 55 20000 11 
+                     (make-book "Great Expectations" (cons "Charles Dickens" empty) 55 50000 15             ; 50 -> 55
+                                (make-book "David Copperfield" (cons "Charles Dickens" empty) 55 20000 11   ; 50 -> 55
                                            'unknown 
                                            'unknown)
-                                (make-book "Bleak House" (cons "Charles Dickens" empty) 55 90000 20 
+                                (make-book "Bleak House" (cons "Charles Dickens" empty) 55 90000 20         ; 50 -> 55
                                            'unknown 
                                            'unknown))))
 
@@ -157,11 +157,11 @@
           [(> (book-isbn abst) ISBN) (copies-sold (book-ltbt abst) ISBN)])]))
           
 
-(check-expect (copies-sold BST1 11) 20000) 
+(check-expect (copies-sold BST1     11)  20000) 
 (check-expect (copies-sold 'unknown 21) -1)   
-(check-expect (copies-sold BST1 10) 10000)
-(check-expect (copies-sold BST1 20) 90000)
-(check-expect (copies-sold BST1 70) -1)
+(check-expect (copies-sold BST1     10)  10000)
+(check-expect (copies-sold BST1     20)  90000)
+(check-expect (copies-sold BST1     70) -1)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -175,18 +175,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; ---------------------------------------------- HELPER FUNCTIONS -------------------------------------------------------
-;; is-isbn? : number book -> boolean
-;; Purpose: return true if the book's isbn is the same as the given isbn
-;;                 false otherwise
-
-(check-expect (is-isbn? 12 BST1) false)     ; BST1: 10, 6, 15, 11, 20
-(check-expect (is-isbn? 10 BST1) true)
-
-(define (is-isbn? isbn abook)
-    (= isbn
-       (book-isbn abook)))
-      
-      
 ;; has-author? : string book -> boolean
 ;; Purpose: return true if the book's list of authors has the given author
 ;;                 false otherwise
