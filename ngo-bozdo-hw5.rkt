@@ -113,8 +113,7 @@
         [(symbol? abst) 'unknown]
         [(book?   abst) (make-book (book-title    abst)
                                    (book-authors  abst)
-                                   (/ (* (book-cost  abst) 
-                                         (+ 100 percentage))
+                                   (/ (* (book-cost  abst) (+ 100 percentage))
                                       100)
                                    (book-n-sold   abst)
                                    (book-isbn     abst)
@@ -284,7 +283,14 @@
 ;; add-new-book : BST Number string ListOfAuthor Number -> BST
 ;; Purpose: add a new book with given information to proper branch of a binary search tree
 
-(check-expect (add-new-book BST1 7 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
+(check-expect (add-new-book 'unknown 
+                            7 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
+              (make-book "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50 0 7 
+                         'unknown 
+                         'unknown)
+                         
+(check-expect (add-new-book BST1 
+                            7 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
               (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 50 10000 10
                         (make-book "Oliver Twist"  (cons "Charles Dickens" empty) 50 20000 6 
                                    'unknown 
@@ -299,7 +305,8 @@
                                               'unknown 
                                               'unknown))))
                                         
-(check-expect (add-new-book BST1 25 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
+(check-expect (add-new-book BST1 
+                            25 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
               (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 50 10000 10
                           (make-book "Oliver Twist" (cons "Charles Dickens" empty) 50 20000 6 
                                      'unknown 
