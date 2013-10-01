@@ -87,7 +87,13 @@
 (define (fun-for-bst abst)
     (cond 
         [(symbol? abst) (...)]
-        [(book?   abst) (... (fun-for-book abst))]))
+        [(book?   abst) (... (book-title                    abook)
+                             (fun-for-author (book-authors  abook))
+                             (book-cost                     abook)
+                             (book-n-sold                   abook)
+                             (book-isbn                     abook)
+                             (fun-for-bst (book-ltbt        abook))
+                             (fun-for-bst (book-rtbt        abook)))]))
    
    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -149,9 +155,12 @@
 ;;          find the given author in the book's list of authors, 
 ;;              return true if found and false otherwise
 
-(check-expect (author-of-book? 'unknown 2  "ABC")              false)
-(check-expect (author-of-book? BST1     6  "Charles Dickens")  true)
-(check-expect (author-of-book? BST1     20 "Charles Dickens")  true)
+(check-expect (author-of-book? 'unknown 2  "ABC")              false)           ; Empty tree
+(check-expect (author-of-book? BST1     99 "ABC")              false)           ; non-existed & too big isbn
+(check-expect (author-of-book? BST1     1  "ABC")              false)           ; non-existed & too small isbn
+(check-expect (author-of-book? BST1     2  "Charles Dickens")  false)           ; non-existed isbn & existed author
+(check-expect (author-of-book? BST1     6  "Charles Dickens")  true)            ; book of left branch
+(check-expect (author-of-book? BST1     20 "Charles Dickens")  true)            ; book of right branch
 
 (define (author-of-book? abst isbn author)
     (cond
