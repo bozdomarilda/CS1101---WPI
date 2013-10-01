@@ -14,8 +14,8 @@
 ;;            title & authors       is a string
 ;;            cost  & n-sold & isbn is a number
 ;;            ltbt  & rtbt          is a BST
-;;            ltbt contains books that have smaller ISBN than current one's
-;;            rtbt contains books that have bigger  ISBN than current one's
+;;            ltbt contains books that have smaller ISBNs than current one's
+;;            rtbt contains books that have bigger  ISBNs than current one's
 
 
 ; Data definition for book
@@ -29,6 +29,8 @@
 ;;        n-sold  as the number of copies sold
 ;;        ltbt    as a BST
 ;;        rtbt    as a BST
+
+(define B1 (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 50 10000 10 'unknown 'unknown))
 
 
 ; Data definition for ListOfAuthor
@@ -104,8 +106,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Signature: increase-price: BST number -> BST
-;; interp: consumes a binary search tree of books and a percentage and produces 
-;;  a binary search tree same as the original but with cost of book increased by the percentage given 
+;; interp: consumes a binary search tree of books and a percentage and 
+;;         produces a binary search tree same as the original but with cost of book increased by the percentage given 
 
 
 (define (increase-price abst percentage)
@@ -144,8 +146,9 @@
 ;;                  such that it performs as few comparisons as is necessary to find the correct ISBN number in the tree.                           
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Signature: copies-sold: BST number -> number
-;; interp: consumes a binary search tree and an ISBN and produces the number of copies sold for the book with the given ISBN
+;; Signature: copies-sold : BST number -> number
+;; interp: consumes a binary search tree and an ISBN and 
+;;         produces the number of copies sold for the book with the given ISBN
 
 (define (copies-sold abst ISBN)
     (cond 
@@ -162,6 +165,7 @@
 (check-expect (copies-sold BST1     10)  10000)
 (check-expect (copies-sold BST1     20)  90000)
 (check-expect (copies-sold BST1     70) -1)
+(check-expect (copies-sold BST1     1)  -1)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -176,11 +180,11 @@
 
 ;; ---------------------------------------------- HELPER FUNCTIONS -------------------------------------------------------
 ;; has-author? : string book -> boolean
-;; Purpose: return true if the book's list of authors has the given author
+;; Purpose: return true if the given book's list of authors has the given author
 ;;                 false otherwise
 
-(check-expect (has-author? "Stephen Crane"   BST1) false)       ; BST1: (cons "Charles Dickens" empty)
-(check-expect (has-author? "Charles Dickens" BST1) true)
+(check-expect (has-author? "Stephen Crane"   B1) false)       ; B1: (cons "Charles Dickens" empty)
+(check-expect (has-author? "Charles Dickens" B1) true)
 
 (define (has-author? author abook)
     (member author (book-authors abook)))
@@ -188,7 +192,7 @@
                           
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; author-of-book? : BST number string -> boolean
-;; Purpose: find the book that has the given isbn first (take advantage of short-circuit evaluation), 
+;; Purpose: find the book that has the given isbn first, 
 ;;              and return false if couldn't find. If found, then
 ;;          find the given author in the book's list of authors, 
 ;;              return true if found and false otherwise
@@ -219,54 +223,6 @@
 
 (define INIT-COPIES-SOLD 0)
 
-;; ---------------------------------------------- HELPER FUNCTIONS -------------------------------------------------------
-;; insert : string ListOfAuthor number number book -> book
-;; Purpose: insert a new book with given information to a binary search tree
-
-(define (insert title authors price isbn abook)
-    (if (< isbn (book-isbn abook))
-        (cond
-            [(symbol? (book-rtbt abook)) (add-to-tree "left"
-                                                      (make-book title authors price INIT-COPIES-SOLD isbn 
-                                                                'unknown 'unknown)
-                                                      abook)]
-            [(book?   (book-rtbt abook)) (add-to-tree "left"
-                                                      (insert title authors price isbn 
-                                                              (book-ltbt abook))
-                                                      abook)])
-        (cond
-            [(symbol? (book-ltbt abook)) (add-to-tree "right"
-                                                      (make-book title authors price INIT-COPIES-SOLD isbn 
-                                                                'unknown 'unknown)
-                                                      abook)]
-            [(book?   (book-ltbt abook)) (add-to-tree "right"
-                                                      (insert title authors price isbn 
-                                                              (book-rtbt abook))
-                                                      abook)])))
-
-;; add-to-tree : String book book -> book
-;; Purpose: make a new book based on the right given book that has
-;;              the left given book added to either left branch or right branch of the binary search tree
-;;          depending on the value of the string "left" or "right"
-
-(define (add-to-tree branch book1 book2)
-    (cond
-        [(string=? "left" branch) (make-book (book-title                   book2)
-                                             (book-authors                 book2)
-                                             (book-cost                    book2)
-                                             (book-n-sold                  book2)
-                                             (book-isbn                    book2)
-                                             book1                                      ;; Add to left
-                                             (book-rtbt                    book2))]
-        [(string=? "right" branch) (make-book (book-title                   book2)
-                                              (book-authors                 book2)
-                                              (book-cost                    book2)
-                                              (book-n-sold                  book2)
-                                              (book-isbn                    book2)
-                                              (book-ltbt                    book2)
-                                              book1)]))                                 ;; Add to right
-        
-
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
 ;; add-new-book : BST Number string ListOfAuthor Number -> BST
 ;; Purpose: add a new book with given information to proper branch of a binary search tree
@@ -276,7 +232,23 @@
               (make-book "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50 0 7 
                          'unknown 
                          'unknown))
-                         
+
+(check-expect (add-new-book BST1 
+                            5 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
+              (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 50 10000 10
+                         (make-book "Oliver Twist"  (cons "Charles Dickens" empty) 50 20000 6 
+                                   (make-book "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50 0 5 
+                                              'unknown 
+                                              'unknown)
+                                   'unknown)
+                         (make-book "Great Expectations" (cons "Charles Dickens" empty) 50 50000 15
+                                   (make-book "David Copperfield" (cons "Charles Dickens" empty) 50 20000 11 
+                                              'unknown 
+                                              'unknown)
+                                   (make-book "Bleak House" (cons "Charles Dickens" empty) 50 90000 20 
+                                              'unknown 
+                                              'unknown))))
+                        
 (check-expect (add-new-book BST1 
                             7 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
               (make-book "A Christmas Carol" (cons "Charles Dickens" empty) 50 10000 10
@@ -328,6 +300,19 @@
 (define (add-new-book abst isbn title authors price)
     (cond 
         [(symbol? abst) (make-book title authors price INIT-COPIES-SOLD isbn 'unknown 'unknown)]
-        [(book?   abst) (insert title authors price isbn abst)]))
-        
-         
+        [(book?   abst) (if (< isbn (book-isbn abst))
+                            (make-book (book-title                    abst)
+                                       (book-authors                  abst)
+                                       (book-cost                     abst)
+                                       (book-n-sold                   abst)
+                                       (book-isbn                     abst)
+                                       (add-new-book (book-ltbt       abst)  isbn title authors price)
+                                       (book-rtbt                     abst))
+                            (make-book (book-title                    abst)
+                                       (book-authors                  abst)
+                                       (book-cost                     abst)
+                                       (book-n-sold                   abst)
+                                       (book-isbn                     abst)
+                                       (book-ltbt                     abst)
+                                       (add-new-book (book-rtbt       abst)  isbn title authors price)))]))
+                            
