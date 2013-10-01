@@ -48,11 +48,11 @@
                     (make-book "Oliver Twist"  (cons "Charles Dickens" empty) 50 20000 6                ; 0. Left branch 1
                                'unknown 
                                'unknown)
-                    (make-book "Great Expectations" (cons "Charles Dickens" empty) 50 50000 15          ; 0. Right branch 2
-                            (make-book "David Copperfield" (cons "Charles Dickens" empty) 50 20000 11   ; R2. Left branch 3
+                    (make-book "Great Expectations" (cons "Charles Dickens" empty) 50 50000 15          ; 0. Right branch 1
+                            (make-book "David Copperfield" (cons "Charles Dickens" empty) 50 20000 11   ; R1. Left branch 2
                                         'unknown 
                                         'unknown)
-                            (make-book "Bleak House" (cons "Charles Dickens" empty) 50 90000 20         ; R2. Right branch 4
+                            (make-book "Bleak House" (cons "Charles Dickens" empty) 50 90000 20         ; R1. Right branch 2
                                         'unknown 
                                         'unknown))))
 
