@@ -230,7 +230,7 @@
         
 
 ;; -------------------------------------------------- MAIN FUNCTION ------------------------------------------------------
-;; add-new-book : BST Number string ListOfAuthor Number -> binary-tree
+;; add-new-book : BST Number string ListOfAuthor Number -> BST
 ;; Purpose: add a new book with given information to proper branch of a binary search tree
 
 (check-expect (add-new-book BST1 7 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
