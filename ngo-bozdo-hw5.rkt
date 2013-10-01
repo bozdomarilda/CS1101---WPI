@@ -287,7 +287,7 @@
                             7 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
               (make-book "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50 0 7 
                          'unknown 
-                         'unknown)
+                         'unknown))
                          
 (check-expect (add-new-book BST1 
                             7 "The Old Curiosity Shop" (cons "Charles Dickens" empty) 50)
