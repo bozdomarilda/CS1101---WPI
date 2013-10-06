@@ -300,7 +300,15 @@
 ;; interp. consumes a list of borrowers and the amount for a loan and
 ;;         produces a list of the names of the borrowers who are requesting more than the given loan amount
 
-(check-expect)
+(check-expect (names-large-loans empty 30) 
+              empty)
+
+(check-expect (names-large-loans BORROWER-LIST-1 100) 
+              (list "Super cow"))
+
+(check-expect (names-large-loans BORROWER-LIST-2 99999999) 
+              empty)
+
 
 (define (names-large-loans alob loan)
   (local [(define (large-loan? borrower)
