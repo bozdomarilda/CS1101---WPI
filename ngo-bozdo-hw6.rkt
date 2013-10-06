@@ -231,6 +231,33 @@
 ;;          percent-raised is the percentage of the loan already raised
 ;;           (i.e. a number in the range 0..100 inclusive)
 
+(define B1 (make-borrower "Cow"       "Moo land" "Moo"   10    50))
+(define B2 (make-borrower "Super cow" "Utopia"   "Moo"   10001 50))
+(define B3 (make-borrower "Woc"       "Woc land" "Cow"   100   25))
+(define B4 (make-borrower "Cup"       "Cup land" "Straw" 100   75))
+(define B5 (make-borrower "Super cup" "Cup land" "Ice"   10000 55))
+
+
 ;; a ListOfBorrower is one of
-;; empty
-;; (cons Borrower ListOfBorrower)
+;;    - empty
+;;    - (cons Borrower ListOfBorrower)
+
+;  Problem 7: Using map and/or filter, 
+;             redefine the function find-by-country that you wrote for Homework 4                       
+
+
+;; find-by-country :  String ListOfBorrower -> ListOfBorrower
+;; interp. consumes the name of a country and a list of borrowers and 
+;;         produces a list of the borrowers who are from that country
+
+(check-expect (find-by-country "Nowhere" empty) empty)
+(check-expect (find-by-country "Nowhere" (cons B1 (cons B2 (cons B3 empty)))) empty)		; B1: Moo land | B2: Utopia | B3: Woc land
+(check-expect (find-by-country "Utopia"  (cons B1 (cons B2 (cons B4 empty)))) (cons B2 empty))	; B1: Moo land | B2: Utopia | B3: Woc land | B4: Cup land
+
+(define (find-by-country country alob)
+  (local [(define (is-country? aborrower)
+            (string=? (borrower-country aborrower) country))]
+    (filter is-country? alob)))
+
+
+;  Problem 8: Using map and/or filter, define a new function list-all-businesses                        
