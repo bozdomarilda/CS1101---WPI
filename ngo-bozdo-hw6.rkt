@@ -231,16 +231,19 @@
 ;;          percent-raised is the percentage of the loan already raised
 ;;           (i.e. a number in the range 0..100 inclusive)
 
-(define B1 (make-borrower "Cow"       "Moo land" "Moo"   10    50))
-(define B2 (make-borrower "Super cow" "Utopia"   "Moo"   10001 50))
-(define B3 (make-borrower "Woc"       "Woc land" "Cow"   100   25))
-(define B4 (make-borrower "Cup"       "Cup land" "Straw" 100   75))
-(define B5 (make-borrower "Super cup" "Cup land" "Ice"   10000 55))
+(define BORROWER-1 (make-borrower "Cow"       "Moo land" "Moo"   10    50))
+(define BORROWER-2 (make-borrower "Super cow" "Utopia"   "Moo"   10001 50))
+(define BORROWER-3 (make-borrower "Woc"       "Woc land" "Cow"   100   25))
+(define BORROWER-4 (make-borrower "Cup"       "Cup land" "Straw" 100   75))
+(define BORROWER-5 (make-borrower "Super cup" "Cup land" "Ice"   10000 55))
 
 
 ;; a ListOfBorrower is one of
 ;;    - empty
 ;;    - (cons Borrower ListOfBorrower)
+
+(cons BORROWER-1 (cons BORROWER-2 (cons BORROWER-3 empty)))
+
 
 ;  Problem 7: Using map and/or filter, 
 ;             redefine the function find-by-country that you wrote for Homework 4                       
@@ -250,9 +253,16 @@
 ;; interp. consumes the name of a country and a list of borrowers and 
 ;;         produces a list of the borrowers who are from that country
 
-(check-expect (find-by-country "Nowhere" empty) empty)
-(check-expect (find-by-country "Nowhere" (cons B1 (cons B2 (cons B3 empty)))) empty)		; B1: Moo land | B2: Utopia | B3: Woc land
-(check-expect (find-by-country "Utopia"  (cons B1 (cons B2 (cons B4 empty)))) (cons B2 empty))	; B1: Moo land | B2: Utopia | B3: Woc land | B4: Cup land
+(check-expect (find-by-country "Nowhere" empty) 
+              empty)
+
+; BORROWER-1: Moo land | BORROWER-2: Utopia | BORROWER-3: Woc land
+(check-expect (find-by-country "Nowhere" (cons BORROWER-1 (cons BORROWER-2 (cons BORROWER-3 empty)))) 
+              empty)	                         
+
+; BORROWER-1: Moo land | BORROWER-2: Utopia | BORROWER-3: Woc land | BORROWER-4: Cup land
+(check-expect (find-by-country "Utopia"  (cons BORROWER-1 (cons BORROWER-2 (cons BORROWER-4 empty)))) 
+              (cons BORROWER-2 empty))
 
 (define (find-by-country country alob)
   (local [(define (is-country? aborrower)
@@ -260,4 +270,26 @@
     (filter is-country? alob)))
 
 
-;  Problem 8: Using map and/or filter, define a new function list-all-businesses                        
+;  Problem 8: Using map and/or filter, define a new function list-all-businesses                            
+
+
+;; list-all-businesses :  ListOfBorrower -> ListOfString
+;; interp. consumes a list of borrowers and
+;;         produces a list of the names of all businesses for all borrowers in the list 
+;;                  (it's OK for the list of businesses to contain duplicates)
+
+(define (list-all-businesses alob)
+  (map borrower-name alob))
+
+
+;  Problem 9: Using map and/or filter, define a new function names-large-loans                              
+
+
+;; names-large-loans :  ListOfBorrower Number -> ListOfString
+;; interp. consumes a list of borrowers and the amount for a loan and
+;;         produces a list of the names of the borrowers who are requesting more than the given loan amount
+
+(define (names-large-loans alob loan)
+  (local [(define (large-loan? borrower)
+            (> (borrower-requested borrower) loan))]
+    (map borrower-name (filter large-loan? alob))))
