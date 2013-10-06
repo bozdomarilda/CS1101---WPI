@@ -242,11 +242,12 @@
 ;;    - empty
 ;;    - (cons Borrower ListOfBorrower)
 
-(cons BORROWER-1 (cons BORROWER-2 (cons BORROWER-3 empty)))
+(define BORROWER-LIST-1 (cons BORROWER-1 (cons BORROWER-2 (cons BORROWER-3 empty))))
+(define BORROWER-LIST-2 (cons BORROWER-2 (cons BORROWER-2 (cons BORROWER-3 empty))))
 
 
-;  Problem 7: Using map and/or filter, 
-;             redefine the function find-by-country that you wrote for Homework 4                       
+;  Problem 7: Using map and/or filter,     
+;             redefine the function find-by-country that you wrote for Homework 4                            
 
 
 ;; find-by-country :  String ListOfBorrower -> ListOfBorrower
@@ -256,11 +257,11 @@
 (check-expect (find-by-country "Nowhere" empty) 
               empty)
 
-; BORROWER-1: Moo land | BORROWER-2: Utopia | BORROWER-3: Woc land
+; BORROWER-1: "Moo land" | BORROWER-2: "Utopia" | BORROWER-3: "Woc land"
 (check-expect (find-by-country "Nowhere" (cons BORROWER-1 (cons BORROWER-2 (cons BORROWER-3 empty)))) 
               empty)	                         
 
-; BORROWER-1: Moo land | BORROWER-2: Utopia | BORROWER-3: Woc land | BORROWER-4: Cup land
+; BORROWER-1: "Moo land" | BORROWER-2: "Utopia" | BORROWER-3: "Woc land" | BORROWER-4: "Cup land"
 (check-expect (find-by-country "Utopia"  (cons BORROWER-1 (cons BORROWER-2 (cons BORROWER-4 empty)))) 
               (cons BORROWER-2 empty))
 
@@ -278,6 +279,16 @@
 ;;         produces a list of the names of all businesses for all borrowers in the list 
 ;;                  (it's OK for the list of businesses to contain duplicates)
 
+(check-expect (list-all-businesses empty)
+              empty)
+
+(check-expect (list-all-businesses BORROWER-LIST-1)
+              (list "Cow" "Super cow" "Woc"))
+
+(check-expect (list-all-businesses BORROWER-LIST-2)
+              (list "Super cow" "Super cow" "Woc"))
+
+
 (define (list-all-businesses alob)
   (map borrower-name alob))
 
@@ -288,6 +299,8 @@
 ;; names-large-loans :  ListOfBorrower Number -> ListOfString
 ;; interp. consumes a list of borrowers and the amount for a loan and
 ;;         produces a list of the names of the borrowers who are requesting more than the given loan amount
+
+(check-expect)
 
 (define (names-large-loans alob loan)
   (local [(define (large-loan? borrower)
