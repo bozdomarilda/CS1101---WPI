@@ -2,8 +2,12 @@
 ;; Usernames: hmngo     & mbozdo
 ;; ----------------------------------------
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ########################################## PART 1 ################################################
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;  Problem 1: Provide data definitions for a river system. 
-; For each river in the hierarchy, you should record the following information:                  
+; For each river in the hierarchy, you should record the following information:                      
 ;        the name of the river, the pH of the water, the DO in parts per million, 
 ;        and a list of the tributaries (rivers) that feed into the river.
 
@@ -21,7 +25,7 @@
 ;;       - (cons River ListOfRiver)
 
 
-;  Problem 2: Provide an example of a river system that starts with a single river and            
+;  Problem 2: Provide an example of a river system that starts with a single river and               
 ;            consists of at least two levels in the hierarchy below that. 
 
 
@@ -38,7 +42,7 @@
                     (make-river "Gallatin" 2 6  empty))))
 
 
-;  Problem 3: Provide the templates for your data definitions.                                    
+;  Problem 3: Provide the templates for your data definitions.                                      
 
 
 ;; fun-for-river: River...-> ...
@@ -216,5 +220,17 @@
         (make-river "Madison" 0.9 12 empty)
         (make-river "Gallatin" 1.9 6 empty))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ########################################## PART 2 ################################################
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Borrower is a (make-borrower String String String Number Number)
+(define-struct borrower (name country business requested percent-raised))
+;; interp:  represents a borrower for a microlending institution
+;;          requested is the amount of the requested loan (in US dollars)
+;;          percent-raised is the percentage of the loan already raised
+;;           (i.e. a number in the range 0..100 inclusive)
 
+;; a ListOfBorrower is one of
+;; empty
+;; (cons Borrower ListOfBorrower)
