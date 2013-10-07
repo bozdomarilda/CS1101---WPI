@@ -83,21 +83,30 @@
       (lower-ph-than/list (river-tributaries a-river) limit)))
 
 
+(check-expect (lower-ph-than River1 9) 
+              (list "Missouri" "Jefferson" "Gardner" "Boulder" "Madison" "Gallatin"))
+(check-expect (lower-ph-than (make-river "Johnson" 12 6 
+                                         (list (make-river "Buna" 5 6 empty))) 
+                             7) 
+              (list "Buna"))
+
 ;; --------------------------------------------- HELPER FUNCTIONS -----------------------------------------------
-;; Signature: lower-ph-than/list: ListOfRiver number -> ListOfString
+;; Signature: lower-ph-than/list : ListOfRiver number -> ListOfString
 ;; Interp: consumes a list of rivers and a pH values and 
 ;;         produces a list of names of the rivers in the list that have a lower pH value than the given value
-    
+
 (define (lower-ph-than/list alor limit)
   (cond [(empty? alor) empty]
         [(cons? alor) (append (lower-ph-than (first alor) limit)
                               (lower-ph-than/list (rest alor) limit))]))
 
-(check-expect (lower-ph-than River1 9) 
-              (list "Missouri" "Jefferson" "Gardner" "Boulder" "Madison" "Gallatin"))
 (check-expect (lower-ph-than/list empty 7) 
               empty)
-(check-expect (lower-ph-than (make-river "Johnson" 12 6 (list (make-river "Buna" 5 6 empty))) 7) 
+(check-expect (lower-ph-than/list (river-tributaries River1) 9) 
+              (list "Jefferson" "Gardner" "Boulder" "Madison" "Gallatin"))
+(check-expect (lower-ph-than/list (list (make-river "Johnson" 12 6 
+                                                    (list (make-river "Buna" 5 6 empty)))) 
+                                  7) 
               (list "Buna"))
 
 
@@ -123,19 +132,8 @@
        (<  (river-pH a-river) UPPER-BOUND-PH)
        (>= (river-DO a-river) LOWER-BOUND-DO)               ;; DO condition
        (all-healthy? (river-tributaries a-river))))
-    
 
-;; --------------------------------------------- HELPER FUNCTIONS -----------------------------------------------
-;; Signature: all-healthy? : ListOfRiver -> Boolean
-;; interp: consumes a list of rivers and 
-;;         produces true if each river in the system has pH between 6.5 and 8.5 and DO at least 6ppm
-;;                  false otherwise
 
-(define (all-healthy? alor)
-  (cond [(empty? alor) true]
-        [(cons? alor) (and (healthy? (first alor))
-                           (all-healthy? (rest alor)))]))             
-       
 (check-expect (healthy? River1) 
               false)
 
@@ -179,6 +177,45 @@
                                  (make-river "Madison" 6.7 12 empty)
                                  (make-river "Gallatin" 6.8 6 empty)))) 
               false)
+
+
+;; --------------------------------------------- HELPER FUNCTIONS -----------------------------------------------
+;; Signature: all-healthy? : ListOfRiver -> Boolean
+;; interp: consumes a list of rivers and 
+;;         produces true if each river in the system has pH between 6.5 and 8.5 and DO at least 6ppm
+;;                  false otherwise
+
+(define (all-healthy? alor)
+  (cond [(empty? alor) true]
+        [(cons? alor) (and (healthy? (first alor))
+                           (all-healthy? (rest alor)))]))             
+
+
+(check-expect (all-healthy? empty)
+              true)
+
+(check-expect (all-healthy?  (list (make-river "Jefferson" 7.5 9 
+            	                      (list (make-river "Beaverhead" 9 11  empty) 
+                                               (make-river "Big Hole"   9 6.5 empty)))
+                                   (make-river "Sun" 14 12 empty)
+                                   (make-river "Yellowstone" 10 7 (list (make-river "Gardner" 5  11 empty) 
+                                                                  (make-river "Sheilds" 13 12 empty)
+                              			               (make-river "Boulder" 1  1  empty)))
+                                   (make-river "Madison"  1 12 empty)
+                                   (make-river "Gallatin" 2 6  empty))) 
+              false)
+
+(check-expect (all-healthy? (list (make-river "Jefferson"   7.5 9 
+                                             (list (make-river "Beaverhead" 6.6 11  empty) 
+                                                   (make-river "Big Hole"   7.5 6.5 empty)))
+                                  (make-river "Sun"         7   12 empty)
+                                  (make-river "Yellowstone" 6.9 7 
+                                             (list (make-river "Gardner" 7.6 11 empty) 
+                                                   (make-river "Sheilds" 8.3 12 empty)
+                                                   (make-river "Boulder" 8.4 7  empty)))
+                                  (make-river "Madison"     6.7 12 empty)
+                                  (make-river "Gallatin"    6.8 6  empty))) 
+              true)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -250,7 +287,7 @@
 ;;    - (cons Borrower ListOfBorrower)
 
 (define BORROWER-LIST-1 (cons BORROWER-1 (cons BORROWER-2 (cons BORROWER-3 empty))))
-(define BORROWER-LIST-2 (cons BORROWER-2 (cons BORROWER-2 (cons BORROWER-3 empty))))
+(define BORROWER-LIST-2 (cons BORROWER-5 (cons BORROWER-2 (cons BORROWER-3 empty))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -292,10 +329,10 @@
               empty)
 
 (check-expect (list-all-businesses BORROWER-LIST-1)
-              (list "Cow" "Super cow" "Woc"))
+              (list "Moo" "Moo" "Cow"))
 
 (check-expect (list-all-businesses BORROWER-LIST-2)
-              (list "Super cow" "Super cow" "Woc"))
+              (list "Ice" "Moo" "Cow"))
 
 
 (define (list-all-businesses alob)
