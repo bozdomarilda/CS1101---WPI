@@ -32,16 +32,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define River1 
-			 (make-river "Missouri" 7 6 
-      			        (list (make-river "Jefferson" 7.5 9 
-            			                    (list (make-river "Beaverhead" 9 11  empty) 
-                  			                    (make-river "Big Hole"   9 6.5 empty)))
-                    			(make-river "Sun" 14 12 empty)
-                    			(make-river "Yellowstone" 10 7 (list (make-river "Gardner" 5  11 empty) 
-                        			                                 (make-river "Sheilds" 13 12 empty)
-                              			                           (make-river "Boulder" 1  1  empty)))
-                    			(make-river "Madison"  1 12 empty)
-                  				(make-river "Gallatin" 2 6  empty))))
+	(make-river "Missouri" 7 6 
+      	       	    (list (make-river "Jefferson" 7.5 9 
+            	                      (list (make-river "Beaverhead" 9 11  empty) 
+                 			    (make-river "Big Hole"   9 6.5 empty)))
+                    	  (make-river "Sun" 14 12 empty)
+                    	  (make-river "Yellowstone" 10 7 (list (make-river "Gardner" 5  11 empty) 
+                         	                               (make-river "Sheilds" 13 12 empty)
+                              			               (make-river "Boulder" 1  1  empty)))
+                    	  (make-river "Madison"  1 12 empty)
+                  	  (make-river "Gallatin" 2 6  empty))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
