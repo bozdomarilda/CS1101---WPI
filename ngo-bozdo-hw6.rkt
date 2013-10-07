@@ -258,17 +258,34 @@
 ;; Interp: consumes a list of river and
 ;;         produces another list of river the same as the first one but with pH lowered by 0.1
 
-   ; better solution
 (define (lower-all-ph/list alor)
-  (map lower-all-ph alor))
-
-;(define (lower-all-ph/list alor)
-;  (cond [(empty? alor) empty ]
-;        [(cons? alor) (cons (lower-all-ph (first alor))
-;                       (lower-all-ph/list (rest alor)))]))
+  (cond [(empty? alor) empty ]
+        [(cons?  alor) (cons (lower-all-ph (first alor))
+                             (lower-all-ph/list (rest alor)))]))
 
 
-        
+(check-expect (lower-all-ph/list 
+                           (list (make-river "Jefferson" 7.5 9 
+            	                          (list (make-river "Beaverhead" 9 11  empty) 
+                 		          	        (make-river "Big Hole"   9 6.5 empty)))
+                    	      (make-river "Sun" 14 12 empty)
+                    	      (make-river "Yellowstone" 10 7 
+                                             (list (make-river "Gardner" 5  11 empty) 
+                         	                        (make-river "Sheilds" 13 12 empty)
+                              			(make-river "Boulder" 1  1  empty)))
+                    	      (make-river "Madison"  1 12 empty)
+                  	              (make-river "Gallatin" 2 6  empty))) 
+              (list (make-river "Jefferson" 7.4 9 
+                                (list (make-river "Beaverhead" 8.9 11  empty) 
+                                      (make-river "Big Hole"   8.9 6.5 empty)))
+                    (make-river "Sun" 13.9 12 empty)
+                    (make-river "Yellowstone" 9.9 7 
+                                (list (make-river "Gardner" 4.9  11 empty) 
+                                      (make-river "Sheilds" 12.9 12 empty)
+                                      (make-river "Boulder" 0.9  1  empty)))
+                    (make-river "Madison"  0.9 12 empty)
+                    (make-river "Gallatin" 1.9 6  empty)))        
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ########################################## PART 2 ################################################
