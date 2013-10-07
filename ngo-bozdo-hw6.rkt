@@ -240,6 +240,19 @@
                  (lower-all-ph/list (river-tributaries a-river))))
 
 
+(check-expect (lower-all-ph River1) 
+              (make-river "Missouri" 6.9 6 
+                          (list (make-river "Jefferson" 7.4 9 
+                                            (list (make-river "Beaverhead" 8.9 11  empty) 
+                                                  (make-river "Big Hole"   8.9 6.5 empty)))
+                                (make-river "Sun" 13.9 12 empty)
+                                (make-river "Yellowstone" 9.9 7 
+                                            (list (make-river "Gardner" 4.9  11 empty) 
+                                                  (make-river "Sheilds" 12.9 12 empty)
+                                                  (make-river "Boulder" 0.9  1  empty)))
+                                (make-river "Madison"  0.9 12 empty)
+                                (make-river "Gallatin" 1.9 6  empty))))
+
 ;; --------------------------------------------- HELPER FUNCTIONS -----------------------------------------------
 ;; Signature: lower-all-ph/list : ListOfRiver -> ListOfRiver
 ;; Interp: consumes a list of river and
@@ -254,14 +267,7 @@
 ;        [(cons? alor) (cons (lower-all-ph (first alor))
 ;                       (lower-all-ph/list (rest alor)))]))
 
-(check-expect (lower-all-ph River1) (make-river "Missouri" 6.9 6 (list (make-river "Jefferson" 7.4 9 
-    (list (make-river "Beaverhead" 8.9 11 empty) (make-river "Big Hole" 8.9 6.5 empty)))
-        (make-river "Sun" 13.9 12 empty)
-        (make-river "Yellowstone" 9.9 7 (list (make-river "Gardner" 4.9 11 empty) 
-                                             (make-river "Sheilds" 12.9 12 empty)
-                                             (make-river "Boulder" 0.9 1 empty)))
-        (make-river "Madison" 0.9 12 empty)
-        (make-river "Gallatin" 1.9 6 empty))))
+
         
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
