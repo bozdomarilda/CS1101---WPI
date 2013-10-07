@@ -48,21 +48,21 @@
 ;;  Problem 3: Provide the templates for your data definitions.                                      
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; fun-for-river: River...-> ...
+;; fun-for-river: River ...-> ...
 
-#;(define (fun-for-river a-river....)
+#;(define (fun-for-river a-river ...)
        (... (river-name a-river)
             (river-pH a-river)
             (river-DO a-river)
-            (fun-for-lor (river-tributaries a-river)...)))
+            (fun-for-lor (river-tributaries a-river) ...)))
 
 
-;; fun-for-lor: ListOfRiver ... -> ....
+;; fun-for-lor: ListOfRiver ... -> ...
 
-#;(define (fun-for-lor alor ....)
-    (cond [(empty? alor) ..... ]
-          [(cons?  alor) (fun-for-river (first alor)....)
-                         (fun-for-lor (rest alor).....)]))
+#;(define (fun-for-lor alor ...)
+    (cond [(empty? alor) ... ]
+          [(cons?  alor) (fun-for-river (first alor) ...)
+                         (fun-for-lor (rest alor) ...)]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
