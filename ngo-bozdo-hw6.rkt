@@ -15,10 +15,10 @@
 
 (define-struct river (name pH DO tributaries))
 ;; A river is a (make-river String Number Number ListOfRiver) where
-;;   name        is the name of the river
-;;   pH          is the level of pH of the water which ranges from 0 to 14
-;;   DO          is the level of dissolved oxygen and ranges from 0 ppm to 12 ppm
-;;   tributaries is a list of the rivers that feed into the given river 
+;;         name        is the name of the river
+;;   	   pH          is the level of pH of the water which ranges from 0 to 14
+;;   	   DO          is the level of dissolved oxygen and ranges from 0 ppm to 12 ppm
+;;   	   tributaries is a list of the rivers that feed into the given river 
 
 
 ;; ListOfRiver is one of:
@@ -37,9 +37,10 @@
             	                      (list (make-river "Beaverhead" 9 11  empty) 
                  			    (make-river "Big Hole"   9 6.5 empty)))
                     	  (make-river "Sun" 14 12 empty)
-                    	  (make-river "Yellowstone" 10 7 (list (make-river "Gardner" 5  11 empty) 
-                         	                               (make-river "Sheilds" 13 12 empty)
-                              			               (make-river "Boulder" 1  1  empty)))
+                    	  (make-river "Yellowstone" 10 7 
+                    	  	      (list (make-river "Gardner" 5  11 empty)
+                    	  		    (make-river "Sheilds" 13 12 empty)
+                    	  		    (make-river "Boulder" 1  1  empty)))
                     	  (make-river "Madison"  1 12 empty)
                   	  (make-river "Gallatin" 2 6  empty))))
 
