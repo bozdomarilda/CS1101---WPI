@@ -207,8 +207,8 @@
                                              (make-river "Boulder" 8.4 7 empty)))
                                  (make-river "Madison" 6.7 12 empty)
                                  (make-river "Gallatin" 6.8 6 empty)))) 
-              false)               
-
+              false) 
+              
 (check-expect (healthy? 
               (make-river "Missouri" 7 8 
                            (list (make-river "Jefferson" 7.5 9 
@@ -221,7 +221,7 @@
                                              (make-river "Boulder" 8.4 7 empty)))
                                  (make-river "Madison" 4.7 12 empty)
                                  (make-river "Gallatin" 6.8 6 empty)))) 
-              false) 
+              false)               
               
 
 ;; --------------------------------------------- HELPER FUNCTIONS -----------------------------------------------
@@ -239,17 +239,6 @@
 (check-expect (all-healthy? empty)
               true)
 
-(check-expect (all-healthy?  (list (make-river "Jefferson" 7.5 9 
-            	                      (list (make-river "Beaverhead" 9 11  empty) 
-                                               (make-river "Big Hole"   9 6.5 empty)))
-                                   (make-river "Sun" 14 12 empty)
-                                   (make-river "Yellowstone" 10 7 (list (make-river "Gardner" 5  11 empty) 
-                                                                  (make-river "Sheilds" 13 12 empty)
-                              			               (make-river "Boulder" 1  1  empty)))
-                                   (make-river "Madison"  1 12 empty)
-                                   (make-river "Gallatin" 2 6  empty))) 
-              false)
-
 (check-expect (all-healthy? (list (make-river "Jefferson"   7.5 9 
                                              (list (make-river "Beaverhead" 6.6 11  empty) 
                                                    (make-river "Big Hole"   7.5 6.5 empty)))
@@ -261,7 +250,68 @@
                                   (make-river "Madison"     6.7 12 empty)
                                   (make-river "Gallatin"    6.8 6  empty))) 
               true)
-
+              
+(check-expect (all-healthy?  (list (make-river "Jefferson" 7.5 9 
+            	                               (list (make-river "Beaverhead" 9 11  empty) 
+                                                     (make-river "Big Hole"   9 6.5 empty)))
+                                   (make-river "Sun" 14 12 empty)
+                                   (make-river "Yellowstone" 10 7 
+                                   	       (list (make-river "Gardner" 5  11 empty) 
+                                                     (make-river "Sheilds" 13 12 empty)
+                              		             (make-river "Boulder" 1  1  empty)))
+                                   (make-river "Madison"  1 12 empty)
+                                   (make-river "Gallatin" 2 6  empty))) 
+              false)
+              
+(check-expect (all-healthy?  (list (make-river "Jefferson" 6.5 9 
+            	                               (list (make-river "Beaverhead" 9 11  empty) 
+                                                     (make-river "Big Hole"   9 6.5 empty)))
+                                   (make-river "Sun" 14 12 empty)
+                                   (make-river "Yellowstone" 10 7 
+                                   	       (list (make-river "Gardner" 5  11 empty) 
+                                                     (make-river "Sheilds" 13 12 empty)
+                              		             (make-river "Boulder" 1  1  empty)))
+                                   (make-river "Madison"  1 12 empty)
+                                   (make-river "Gallatin" 2 6  empty))) 
+              false)
+              
+(check-expect (all-healthy?  (list (make-river "Jefferson" 8.5 9 
+            	                               (list (make-river "Beaverhead" 9 11  empty) 
+                                                     (make-river "Big Hole"   9 6.5 empty)))
+                                   (make-river "Sun" 14 12 empty)
+                                   (make-river "Yellowstone" 10 7 
+                                   	       (list (make-river "Gardner" 5  11 empty) 
+                                                     (make-river "Sheilds" 13 12 empty)
+                              		             (make-river "Boulder" 1  1  empty)))
+                                   (make-river "Madison"  1 12 empty)
+                                   (make-river "Gallatin" 2 6  empty))) 
+              false)
+              
+              
+(check-expect (all-healthy?  (list (make-river "Jefferson" 7.5 6 
+            	                               (list (make-river "Beaverhead" 9 11  empty) 
+                                                     (make-river "Big Hole"   9 6.5 empty)))
+                                   (make-river "Sun" 14 12 empty)
+                                   (make-river "Yellowstone" 10 7 
+                                   	       (list (make-river "Gardner" 5  11 empty) 
+                                                     (make-river "Sheilds" 13 12 empty)
+                              		             (make-river "Boulder" 1  1  empty)))
+                                   (make-river "Madison"  1 12 empty)
+                                   (make-river "Gallatin" 2 6  empty))) 
+              false)
+              
+(check-expect (all-healthy?  (list (make-river "Jefferson" 7.5 2 
+            	                               (list (make-river "Beaverhead" 9 11  empty) 
+                                                     (make-river "Big Hole"   9 6.5 empty)))
+                                   (make-river "Sun" 14 12 empty)
+                                   (make-river "Yellowstone" 10 7 
+                                   	       (list (make-river "Gardner" 5  11 empty) 
+                                                     (make-river "Sheilds" 13 12 empty)
+                              		             (make-river "Boulder" 1  1  empty)))
+                                   (make-river "Madison"  1 12 empty)
+                                   (make-river "Gallatin" 2 6  empty))) 
+              false)
+              
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Problem 6: Develop a function lower-all-ph consumes a river system and produces a river system. 
