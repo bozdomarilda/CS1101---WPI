@@ -53,8 +53,8 @@
 
 #;(define (fun-for-river a-river ...)
        (... (river-name a-river)
-            (river-pH a-river)
-            (river-DO a-river)
+            (river-pH   a-river)
+            (river-DO   a-river)
             (fun-for-lor (river-tributaries a-river) ...)))
 
 
@@ -122,6 +122,7 @@
 (define UPPER-BOUND-PH 8.5)
 (define LOWER-BOUND-DO 6)
 
+
 ;; ---------------------------------------------- MAIN FUNCTION -------------------------------------------------
 ;; Signature: healthy? : river -> boolean
 ;; interp: consumes a river and 
@@ -181,9 +182,9 @@
 
 
 ;; --------------------------------------------- HELPER FUNCTIONS -----------------------------------------------
-;; Signature: all-healthy? : ListOfRiver -> Boolean
+;; Signature: all-healthy? : ListOfRiver -> boolean
 ;; interp: consumes a list of rivers and 
-;;         produces true if each river in the system has pH between 6.5 and 8.5 and DO at least 6ppm
+;;         produces true if all rivers in the list have pH between 6.5 and 8.5 and DO at least 6ppm
 ;;                  false otherwise
 
 (define (all-healthy? alor)
@@ -254,6 +255,7 @@
                                 (make-river "Madison"  0.9 12 empty)
                                 (make-river "Gallatin" 1.9 6  empty))))
 
+
 ;; --------------------------------------------- HELPER FUNCTIONS -----------------------------------------------
 ;; Signature: lower-all-ph/list : ListOfRiver -> ListOfRiver
 ;; Interp: consumes a list of river and
@@ -264,18 +266,19 @@
         [(cons?  alor) (cons (lower-all-ph (first alor))
                              (lower-all-ph/list (rest alor)))]))
 
-
+(check-expect (lower-all-ph empty)
+	empty)
 (check-expect (lower-all-ph/list 
                            (list (make-river "Jefferson" 7.5 9 
-            	                          (list (make-river "Beaverhead" 9 11  empty) 
-                 		          	        (make-river "Big Hole"   9 6.5 empty)))
-                    	      (make-river "Sun" 14 12 empty)
-                    	      (make-river "Yellowstone" 10 7 
-                                             (list (make-river "Gardner" 5  11 empty) 
-                         	                        (make-river "Sheilds" 13 12 empty)
-                              			(make-river "Boulder" 1  1  empty)))
-                    	      (make-river "Madison"  1 12 empty)
-                  	              (make-river "Gallatin" 2 6  empty))) 
+            	                              (list (make-river "Beaverhead" 9 11  empty) 
+                 		            	    (make-river "Big Hole"   9 6.5 empty)))
+                    	         (make-river "Sun" 14 12 empty)
+                    	         (make-river "Yellowstone" 10 7 
+                                              (list (make-river "Gardner" 5  11 empty) 
+                         	                    (make-river "Sheilds" 13 12 empty)
+                              	    		    (make-river "Boulder" 1  1  empty)))
+                    	         (make-river "Madison"  1 12 empty)
+                  	         (make-river "Gallatin" 2 6  empty))) 
               (list (make-river "Jefferson" 7.4 9 
                                 (list (make-river "Beaverhead" 8.9 11  empty) 
                                       (make-river "Big Hole"   8.9 6.5 empty)))
