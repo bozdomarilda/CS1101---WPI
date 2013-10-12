@@ -125,6 +125,10 @@
 ;;            You may use the built-in Racket function length.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; --------------------------------------------------- CONSTANTS ---------------------------------------------------------
+(define DEFAULT-MOST-SOCIAL (make-person "bot" "bot@wpi.edu" empty))
+
+
 ;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; most-social : -> person
 ;; Interp. return person with the most friends
@@ -133,7 +137,7 @@
 (define (most-social)
        (cond
             [(empty? NETWORK) (error "empty network")]
-            [(cons?  NETWORK) (person-most-friends NETWORK)])) 
+            [(cons?  NETWORK) (person-most-friends NETWORK DEFAULT-MOST-SOCIAL)])) 
       
 
 ;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
