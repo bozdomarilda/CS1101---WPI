@@ -43,7 +43,7 @@
 
 (define (create-person name email)
       (begin
-        (cons (make-person name email INIT-FRIEND-LIST) NETWORK)
+        (set! NETWORK (cons (make-person name email INIT-FRIEND-LIST) NETWORK))
         (first NETWORK)))
 
 
@@ -51,6 +51,11 @@
 ;; Problem 4: Use create-person to populate the social network network with at least 5 different persons. 
 ;;            (You should "define" these new persons so you can refer to them in later exercises.)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(create-person "Nate"  "nate@wpi.edu")
+(create-person "Julia" "julia@wpi.edu")
+(create-person "Peter" "peter@wpi.edu")
+(create-person "Erik"  "erik@wpi.edu")
+(create-person "Luke"  "luke@wpi.edu")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
