@@ -7,5 +7,38 @@
 ;;						Each person has a name, an email address, and a list of friends (persons).
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; a Person is (make-person string string ListOfPerson)
+;; a person is (make-person string string ListOfPerson)
 (define-struct person (name email friend-list))
+
+
+;; ListOfPerson is one of
+;;      - empty
+;;      - (cons person ListOfPerson)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 2: Define a variable for a social network called network that will hold a list of persons 
+;;            (it should initially be empty).
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define NETWORK empty)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 3: Write a function create-person that consumes a person's name and email address and 
+;;                    returns a new person with the given name and email (and no friends). 
+;;            The new person should also be added to the network. 
+;;            You may assume the named person does not already exist in the network.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define INIT-FRIEND-LIST empty)
+
+;; create-person: string string -> person
+;; Interp. consume a person's name and email
+;;         return a new person
+;; EFFECT: add a person with given info into NETWORK
+
+(define (create-person name email)
+      (begin
+        (cons (make-person name email INIT-FRIEND-LIST) NETWORK)
+        (make-person name email INIT-FRIEND-LIST)))
