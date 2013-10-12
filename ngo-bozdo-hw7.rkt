@@ -122,7 +122,33 @@
       (set-person-friend-list! person (cons added-person 
                                             (person-friend-list person))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 8: Write a function find-person that consumes the name of a person and 
+;;                returns that person if the person exists in the network, or returns the string "not found" otherwise.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; find-person : string -> person
+;; Interp. consume the name of a person and
+;;         return that person if that person exists in the list
+;;         return "not found" if that person doesn't exist in the list
+
+(define (find-person name)
+      (find-person-in-list name NETWORK))
             
+            
+;; find-person-in-list : string ListOfPerson -> person
+;; Interp. consume name of a person and a list of people
+;;         return the person has the given name
+
+(define (find-person-in-list name alop)
+      (cond 
+            [(empty? alop) (error "not found")]
+            [(cons?  alop) (if (string=? name (person-name (first alop)))
+                               (first alop)
+                               (find-person-in-list name (rest alop)))]))
+                                           
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 8: Write a function most-social that consumes nothing and 
 ;;                      returns the person with the most friends (resolve ties arbitrarily). 
