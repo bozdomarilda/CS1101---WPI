@@ -131,8 +131,8 @@
 ;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; find-person : string -> person
 ;; Interp. consume the name of a person and
-;;         return that person if that person exists in the list
-;;         return "not found" if that person doesn't exist in the list
+;;         return the person who has that name in NETWORK or
+;;                "not found" if there is no person having that name
 
 (define (find-person name)
       (find-person-in-list name NETWORK))
@@ -141,7 +141,8 @@
 ;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
 ;; find-person-in-list : string ListOfPerson -> person
 ;; Interp. consume name of a person and a list of people
-;;         return the person has the given name
+;;         return that person if that person exists in the list
+;;         return "not found" if that person doesn't exist in the list
 
 (define (find-person-in-list name alop)
       (cond 
