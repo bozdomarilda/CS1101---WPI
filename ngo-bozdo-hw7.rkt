@@ -31,8 +31,11 @@
 ;;            You may assume the named person does not already exist in the network.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; --------------------------------------------------- CONSTANTS ---------------------------------------------------------
 (define INIT-FRIEND-LIST empty)
 
+
+;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; create-person: string string -> person
 ;; Interp. consume a person's name and email
 ;;         return a new person
@@ -42,3 +45,21 @@
       (begin
         (cons (make-person name email INIT-FRIEND-LIST) NETWORK)
         (make-person name email INIT-FRIEND-LIST)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 4: Use create-person to populate the social network network with at least 5 different persons. 
+;;            (You should "define" these new persons so you can refer to them in later exercises.)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 5: Write a function list-names-in-network that doesn't consume anything and 
+;;            produces a list of the names of all people in the network. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; list-names-in-network : -> ListOfString
+;; Interp. return list of names of all people in the NETWORK
+
+(define (list-names-in-network)
+      (map person-name NETWORK))
