@@ -128,6 +128,7 @@
 ;;                returns that person if the person exists in the network, or returns the string "not found" otherwise.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; find-person : string -> person
 ;; Interp. consume the name of a person and
 ;;         return that person if that person exists in the list
@@ -137,6 +138,7 @@
       (find-person-in-list name NETWORK))
             
             
+;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
 ;; find-person-in-list : string ListOfPerson -> person
 ;; Interp. consume name of a person and a list of people
 ;;         return the person has the given name
@@ -150,7 +152,7 @@
                                            
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Problem 8: Write a function most-social that consumes nothing and 
+;; Problem 9: Write a function most-social that consumes nothing and 
 ;;                      returns the person with the most friends (resolve ties arbitrarily). 
 ;;                      Return "empty network" if the network doesn't contain any persons. 
 ;;            You may use the built-in Racket function length.
@@ -164,7 +166,7 @@
 (define (most-social)
        (cond
             [(empty? NETWORK) (error "empty network")]
-            [(cons?  NETWORK) (person-most-friends (rest NETWORK) (first NETWORK)])) 
+            [(cons?  NETWORK) (person-most-friends (rest NETWORK) (first NETWORK))])) 
       
 
 ;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
@@ -182,9 +184,9 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Problem 9: Write a function change-email that consumes the name of a person and a new email address and 
-;;            changes that person's email address to the new one. 
-;;            Of course, the change should also show up in all occurrences of the named person in any of the friends lists
+;; Problem 10: Write a function change-email that consumes the name of a person and a new email address and 
+;;             changes that person's email address to the new one. 
+;;             Of course, the change should also show up in all occurrences of the named person in any of the friends lists
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; change-email : string string -> void
@@ -192,10 +194,4 @@
 ;; EFFECT: change email of one person in NETWORK
 
 (define (change-email name new-email)
-      (local [(define (find-person name alop)
-                  (cond
-                        [(empty? alop) (error "no one has this name!")]
-                        [(cons?  alop) (if (string=? name (person-name (first alop)))
-                                           (first alop)
-                                           (find-person name (rest alop)))]))]
-            (set-person-email! (find-person name NETWORK) new-email)))
+      (set-person-email! (find-person name) new-email))
