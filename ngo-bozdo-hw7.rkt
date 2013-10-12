@@ -125,28 +125,32 @@
 ;;            You may use the built-in Racket function length.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; most-social : -> person
 ;; Interp. return person with the most friends
 ;;         return "empty network" if the network doesn't have any person
 
 (define (most-social)
-      (most-social-accum NETWORK (make-person "A" "A" empty)))
+       (cond
+            [(empty? NETWORK) (error "empty network")]
+            [(cons?  NETWORK) (person-most-friends NETWORK)])) 
       
 
-;; most-social-accum : ListOfPerson person -> person
+;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
+;; person-most-friends : ListOfPerson person -> person
 ;; Interp. return the person with the most friends
 ;;         return "empty network" is the network doesn't have any person
 
-(define (most-social-accum alop most-friends)
+(define (person-most-friends alop most-friends)
       (cond
-            [(empty? alop) (error "empty network")]
-            [(cons?  alop) (most-social-accum (rest alop)
-                                              (if (> (length (first alop)) 
-                                                     (length most-friends))
-                                                  (set! most-friends (first alop))
+            [(empty? alop) most-friends]
+            [(cons?  alop) (person-most-friends (rest alop)
+                                              (if (> (length (person-friend-list (first alop))) 
+                                                     (length (person-friend-list most-friends)))
+                                                  (first alop)
                                                   most-friends))]))
 
-                                                       
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 9: Write a function change-email that consumes the name of a person and a new email address and 
 ;;            changes that person's email address to the new one. 
