@@ -44,7 +44,7 @@
 (define (create-person name email)
       (begin
         (cons (make-person name email INIT-FRIEND-LIST) NETWORK)
-        (make-person name email INIT-FRIEND-LIST)))
+        (first NETWORK)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
