@@ -51,11 +51,11 @@
 ;; Problem 4: Use create-person to populate the social network network with at least 5 different persons. 
 ;;            (You should "define" these new persons so you can refer to them in later exercises.)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(create-person "Nate"  "nate@wpi.edu")
-(create-person "Julia" "julia@wpi.edu")
-(create-person "Peter" "peter@wpi.edu")
-(create-person "Erik"  "erik@wpi.edu")
-(create-person "Luke"  "luke@wpi.edu")
+(define NATE  (create-person "Nate"  "nate@wpi.edu"))
+(define JULIA (create-person "Julia" "julia@wpi.edu"))
+(define NATE  (create-person "Peter" "peter@wpi.edu"))
+(define ERIK  (create-person "Erik"  "erik@wpi.edu"))
+(define LUKE  (create-person "Luke"  "luke@wpi.edu"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
