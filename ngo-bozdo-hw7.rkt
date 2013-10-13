@@ -53,7 +53,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define NATE  (create-person "Nate"  "nate@wpi.edu"))
 (define JULIA (create-person "Julia" "julia@wpi.edu"))
-(define NATE  (create-person "Peter" "peter@wpi.edu"))
+(define PETER (create-person "Peter" "peter@wpi.edu"))
 (define ERIK  (create-person "Erik"  "erik@wpi.edu"))
 (define LUKE  (create-person "Luke"  "luke@wpi.edu"))
 
