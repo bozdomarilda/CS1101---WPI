@@ -63,11 +63,6 @@
 ;;            produces a list of the names of all people in the network. 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; list-names-in-network : -> ListOfString
-;; Interp. return list of names of all people in the NETWORK
-
-(define (list-names-in-network)
-      (map person-name NETWORK))
       
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -77,22 +72,6 @@
 ;;            This time, you must use accumulator-style programming to solve the problem.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; list-all-names : -> ListOfString
-;; Interp. return a list contains all names of people in the network
-
-(define (list-all-names)
-      (list-all-names-accum NETWORK empty))
-      
-      
-;; list-all-names-accum: ListOfPerson ListOfString -> ListOfString
-;; Interp. return a list contains all names of people in the NETWORK
-
-(define (list-all-names-accum alop list-of-names)
-      (cond 
-            [(empty? alop) list-of-names]
-            [(cons?  alop) (list-all-names-accum (rest alop) 
-                                                 (cons (person-name (first alop))
-                                                       list-of-names))]))
 
                                                        
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -103,24 +82,6 @@
 ;; Your function should return void.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
-;; friend : person person -> void
-;; Interp. make two given people friends
-;; EFFECT: add each person into other's friend list
-
-(define (friend p1 p2)
-      (begin
-            (add-to-friend-list p1 p2)
-            (add-to-friend-list p2 p1)))
-            
-            
-;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
-;; add-to-friend-list : person person -> void
-;; Interp. add a formal person into latter person's friend list
-
-(define (add-to-friend-list added-person person)
-      (set-person-friend-list! person (cons added-person 
-                                            (person-friend-list person))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -159,29 +120,6 @@
 ;;            You may use the built-in Racket function length.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
-;; most-social : -> person
-;; Interp. return person with the most friends
-;;         return "empty network" if the network doesn't have any person
-
-(define (most-social)
-       (cond
-            [(empty? NETWORK) (error "empty network")]
-            [(cons?  NETWORK) (person-most-friends (rest NETWORK) (first NETWORK))])) 
-      
-
-;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
-;; person-most-friends : ListOfPerson person -> person
-;; Interp. return the person with the most friends
-
-(define (person-most-friends alop most-friends)
-      (cond
-            [(empty? alop) most-friends]
-            [(cons?  alop) (person-most-friends (rest alop)
-                                              (if (> (length (person-friend-list (first alop))) 
-                                                     (length (person-friend-list most-friends)))
-                                                  (first alop)
-                                                  most-friends))]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
