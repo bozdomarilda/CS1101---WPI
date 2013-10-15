@@ -153,7 +153,7 @@
 
 (define (find-person-in-list name alop)
       (cond 
-            [(empty? alop) (error "not found")]
+            [(empty? alop) "not found"]
             [(cons?  alop) (if (string=? name (person-name (first alop)))
                                (first alop)
                                (find-person-in-list name (rest alop)))]))
