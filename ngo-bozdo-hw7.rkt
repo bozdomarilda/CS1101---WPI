@@ -152,3 +152,11 @@
 
 (define (change-email name new-email)
       (set-person-email! (find-person name) new-email))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Problem 11: Construct a set of tests that demonstrate the correctness of the functions friend, find-person, 
+;;                                                                                        most-social, and change-email. 
+;;             Provide comments with your tests that explain what you are demonstrating, and 
+;;             label the results that will show up in the Interactions Window
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
