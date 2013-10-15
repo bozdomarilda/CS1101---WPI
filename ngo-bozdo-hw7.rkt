@@ -62,7 +62,7 @@
 ;; Problem 5: Write a function list-names-in-network that doesn't consume anything and 
 ;;            produces a list of the names of all people in the network. 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Signature: list-names-in-network: -> ListOfString
+;; Signature: list-names-in-network : -> ListOfString
 ;; interp: produce the list of all people in the network
 
 (define (list-names-in-network)
