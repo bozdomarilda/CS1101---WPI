@@ -39,8 +39,8 @@
 
 ;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; create-person: string string -> person
-;; Interp. consume a person's name and email
-;;         return a new person
+;; Purpose: consume a person's name and email
+;;          return a new person
 ;; EFFECT: add a person with given info into NETWORK
 
 (define (create-person name email)
@@ -111,8 +111,8 @@
 
 ;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; friend : person person -> void
-;; Interp. make two given people friends
-;; EFFECT: add each person into other's friend list
+;; Purpose: make two given people friends
+;; EFFECT:  add each person into other's friend list
 
 (define (friend p1 p2)
       (begin
@@ -122,7 +122,7 @@
             
 ;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
 ;; add-to-friend-list : person person -> void
-;; Interp. add a formal person into latter person's friend list
+;; Purpose: add a formal person into latter person's friend list
 
 (define (add-to-friend-list added-person person)
       (set-person-friend-list! person (cons added-person 
@@ -136,9 +136,9 @@
 
 ;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; find-person : string -> person
-;; Interp. consume the name of a person and
-;;         return the person who has that name in NETWORK or
-;;                "not found" if there is no person having that name
+;; Purpose: consume the name of a person and
+;;          return the person who has that name in NETWORK or
+;;                 "not found" if there is no person having that name
 
 (define (find-person name)
       (find-person-in-list name NETWORK))
@@ -146,9 +146,9 @@
             
 ;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
 ;; find-person-in-list : string ListOfPerson -> person
-;; Interp. consume name of a person and a list of people
-;;         return that person if that person exists in the list
-;;         return "not found" if that person doesn't exist in the list
+;; Purpose: consume name of a person and a list of people
+;;          return that person if that person exists in the list
+;;          return "not found" if that person doesn't exist in the list
 
 (define (find-person-in-list name alop)
       (cond 
@@ -174,8 +174,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; change-email : string string -> void
-;; Interp. change email of a given person to a new one
-;; EFFECT: change email of one person in NETWORK
+;; Purpose: change email of a given person to a new one
+;; EFFECT:  change email of one person in NETWORK
 
 (define (change-email name new-email)
       (set-person-email! (find-person name) new-email))
