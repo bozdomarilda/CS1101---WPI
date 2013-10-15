@@ -211,6 +211,37 @@
 ;;             label the results that will show up in the Interactions Window
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;################################################ Testing "friend" #######################################################;
+"################################################ Friend function ########################################################"
+"Display the NETWORK containing 5 people, none of whom has friend"
+NETWORK
+
+(display "\n")    ; Insert a blank line
+
+"Set up these friends: Nate/Julia, Julia/Peter, Peter/Erik, Erik/Luke"
+(friend NATE  JULIA)
+(friend JULIA PETER)
+(friend PETER ERIK)
+(friend ERIK  LUKE)
+
+(display "\n")    ; Insert a blank line
+
+"Display the NETWORK with these friends"
+NETWORK
+
+(display "\n")    ; Insert a blank line
+(display "\n")    ; Insert a blank line
+
+;############################################# Testing "find-person" ####################################################;
+"############################################# find-person function #####################################################"
+
+"Find and display a person in NETWORK with name 'Nate'"
+(find-person "Nate")
+
+(display "\n")    ; Insert a blank line
+(display "\n")    ; Insert a blank line
+
+
 ;############################################# Testing "change-email" ####################################################;
 "############################################# change-email function #####################################################"
 
@@ -236,6 +267,32 @@ NETWORK
 
 "Display Julia who has Nate in her friend list. Nate's email in Julia' friend list should be the new one"
 JULIA
+
+(display "\n")    ; Insert a blank line
+(display "\n")    ; Insert a blank line
+
+
+;############################################# Testing "most-social" ####################################################;
+"############################################# most-social function #####################################################"
+
+"Make Nate the most social member in NETWORK by adding Peter and Erik to Nate's friend list"
+(friend NATE PETER)
+(friend NATE ERIK)
+
+(display "\n")    ; Insert a blank line
+
+"Find and return a person who has most friends in NETWORK. It should be Nate"
+(most-social)
+
+(display "\n")    ; Insert a blank line
+
+"Remove all members in NETWORK"
+(set! NETWORK empty)
+
+(display "\n")    ; Insert a blank line
+
+"Run most-social on an empty network. Suppose to get error here"
+(most-social)
 
 (display "\n")    ; Insert a blank line
 (display "\n")    ; Insert a blank line
