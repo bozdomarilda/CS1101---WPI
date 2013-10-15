@@ -62,8 +62,8 @@
 ;; Problem 5: Write a function list-names-in-network that doesn't consume anything and 
 ;;            produces a list of the names of all people in the network. 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Signature: list-names-in-network:    ->ListOfString
-;; interp: the function should consume nothing and produce the list of all people in the network
+;; Signature: list-names-in-network: -> ListOfString
+;; interp: produce the list of all people in the network
 
 (define (list-names-in-network)
   (map person-name NETWORK))
@@ -71,7 +71,6 @@
 (check-expect (list-names-in-network) (list "Luke" "Erik" "Peter" "Julia" "Nate"))
 
       
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 6: Write a function list-all-names that doesn't consume anything and 
 ;;            produces a list of the names of all people in the network 
@@ -79,20 +78,26 @@
 ;;            This time, you must use accumulator-style programming to solve the problem.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Signature: list-all-names:    ->ListOfString
-;; interp: the function should consume nothing and produce the list of all people in the network
+;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
+;; Signature: list-all-names : -> ListOfString
+;; interp: produce the list of all people's names in the network
 (define (list-all-names)
   (name-accum NETWORK empty))
 
+            
+;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
 ;; Signature: name-accum: ListOfPeople ListOfString -> ListOfString
 ;; interp: consume a list of people and produce all their names  by remembering the list of names so far
 
-(define (name-accum alop names-so-far)
-  (cond [(empty? alop) names-so-far]
-        [(cons? alop) (name-accum (rest alop) (cons (person-name (first alop)) names-so-far))]))
+(define (name-accum alop list-of-name)
+  (cond [(empty? alop) list-of-name]
+        [(cons? alop) (name-accum (rest alop) 
+                                  (cons (person-name (first alop)) 
+                                        list-of-name))]))
 
 
 (check-expect (list-all-names) (list "Nate" "Julia" "Peter" "Erik" "Luke"))
+                                                       
                                                        
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 7: Write a function friend that consumes two persons, and 
