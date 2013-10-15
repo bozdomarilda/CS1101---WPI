@@ -82,7 +82,25 @@
 ;; Your function should return void.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
+;; friend : person person -> void
+;; Interp. make two given people friends
+;; EFFECT: add each person into other's friend list
 
+(define (friend p1 p2)
+      (begin
+            (add-to-friend-list p1 p2)
+            (add-to-friend-list p2 p1)))
+            
+            
+;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
+;; add-to-friend-list : person person -> void
+;; Interp. add a formal person into latter person's friend list
+
+(define (add-to-friend-list added-person person)
+      (set-person-friend-list! person (cons added-person 
+                                            (person-friend-list person))))
+                                            
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 8: Write a function find-person that consumes the name of a person and 
