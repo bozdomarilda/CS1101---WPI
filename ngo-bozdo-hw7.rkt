@@ -64,8 +64,9 @@
 ;; Problem 5: Write a function list-names-in-network that doesn't consume anything and 
 ;;            produces a list of the names of all people in the network. 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Signature: list-names-in-network : -> ListOfString
-;; interp: produce the list of all people in the network
+;; Purpose: produce the list of all people in the network
 
 (define (list-names-in-network)
   (map person-name NETWORK))
@@ -82,14 +83,14 @@
 
 ;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
 ;; Signature: list-all-names : -> ListOfString
-;; interp: produce the list of all people's names in the network
+;; Purpose: produce the list of all people's names in the network
 (define (list-all-names)
   (name-accum NETWORK empty))
 
             
 ;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
 ;; Signature: name-accum: ListOfPeople ListOfString -> ListOfString
-;; interp: consume a list of people and produce all their names  by remembering the list of names so far
+;; Purpose: consume a list of people and produce all their names by remembering the list of names so far
 
 (define (name-accum alop list-of-name)
   (cond [(empty? alop) list-of-name]
@@ -114,10 +115,10 @@
 ;; Purpose: make two given people friends
 ;; EFFECT:  add each person into other's friend list
 
-(define (friend p1 p2)
+(define (friend person1 person2)
       (begin
-            (add-to-friend-list p1 p2)
-            (add-to-friend-list p2 p1)))
+            (add-to-friend-list person1 person2)
+            (add-to-friend-list person2 person1)))
             
             
 ;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
@@ -165,7 +166,29 @@
 ;;            You may use the built-in Racket function length.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ------------------------------------------------- MAIN FUNCTION -------------------------------------------------------
+;; most-social : -> person
+;; Purpose: return person with the most friends
+;;          return "empty network" if the network doesn't have any person
 
+(define (most-social)
+       (cond
+            [(empty? NETWORK) "empty network"]
+            [(cons?  NETWORK) (person-most-friends (rest NETWORK) (first NETWORK))])) 
+      
+
+;; ------------------------------------------------ HELPER FUNCTIONS -----------------------------------------------------
+;; person-most-friends : ListOfPerson person -> person
+;; Purpose: return the person with the most friends
+
+(define (person-most-friends alop most-friends)
+      (cond
+            [(empty? alop) most-friends]
+            [(cons?  alop) (person-most-friends (rest alop)
+                                              (if (> (length (person-friend-list (first alop))) 
+                                                     (length (person-friend-list most-friends)))
+                                                  (first alop)
+                                                  most-friends))]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 10: Write a function change-email that consumes the name of a person and a new email address and 
