@@ -160,3 +160,32 @@
 ;;             Provide comments with your tests that explain what you are demonstrating, and 
 ;;             label the results that will show up in the Interactions Window
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;############################################# Testing "change-email" ####################################################;
+"############################################# change-email function #####################################################"
+
+"NETWORK with Nate's original email"
+NETWORK
+
+(display "\n")    ; Insert a blank line
+
+"Nate's original email in Julia's friend list"
+JULIA
+
+(display "\n")    ; Insert a blank line
+
+"Change Nate's email to superNate@wpi.edu"
+(change-email "Nate" "superNate@wpi.edu")
+
+(display "\n")    ; Insert a blank line
+
+"Display NETWORK in which Nate has new email"
+NETWORK
+
+(display "\n")    ; Insert a blank line
+
+"Display Julia who has Nate in her friend list. Nate's email in Julia' friend list should be the new one"
+JULIA
+
+(display "\n")    ; Insert a blank line
+(display "\n")    ; Insert a blank line
