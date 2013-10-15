@@ -21,6 +21,8 @@
 ;;            (it should initially be empty).
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; NETWORK: ListOfPerson
+;; Interp. store information of each person in the social network
 (define NETWORK empty)
 
 
